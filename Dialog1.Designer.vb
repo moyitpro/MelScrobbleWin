@@ -27,6 +27,7 @@ Partial Class Dialog1
         Me.Cancel_Button = New System.Windows.Forms.Button
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.Label6 = New System.Windows.Forms.Label
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.Button3 = New System.Windows.Forms.Button
         Me.Label5 = New System.Windows.Forms.Label
@@ -39,8 +40,8 @@ Partial Class Dialog1
         Me.Password = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
         Me.ShowAtStartup = New System.Windows.Forms.CheckBox
+        Me.ShowResponse = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -98,6 +99,7 @@ Partial Class Dialog1
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.ShowResponse)
         Me.TabPage1.Controls.Add(Me.Label6)
         Me.TabPage1.Controls.Add(Me.ShowAtStartup)
         Me.TabPage1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -108,6 +110,15 @@ Partial Class Dialog1
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(12, 17)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(44, 13)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "General"
         '
         'TabPage2
         '
@@ -233,15 +244,6 @@ Partial Class Dialog1
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login"
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 17)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(44, 13)
-        Me.Label6.TabIndex = 2
-        Me.Label6.Text = "General"
-        '
         'ShowAtStartup
         '
         Me.ShowAtStartup.AutoSize = True
@@ -254,6 +256,18 @@ Partial Class Dialog1
         Me.ShowAtStartup.TabIndex = 1
         Me.ShowAtStartup.Text = "Show Scrobble Window at Startup"
         Me.ShowAtStartup.UseVisualStyleBackColor = True
+        '
+        'ShowResponse
+        '
+        Me.ShowResponse.AutoSize = True
+        Me.ShowResponse.Checked = Global.WindowsApplication1.My.MySettings.Default.RequestOutPut
+        Me.ShowResponse.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "RequestOutPut", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ShowResponse.Location = New System.Drawing.Point(35, 66)
+        Me.ShowResponse.Name = "ShowResponse"
+        Me.ShowResponse.Size = New System.Drawing.Size(125, 17)
+        Me.ShowResponse.TabIndex = 3
+        Me.ShowResponse.Text = "Show Response Info"
+        Me.ShowResponse.UseVisualStyleBackColor = True
         '
         'Dialog1
         '
@@ -301,5 +315,6 @@ Partial Class Dialog1
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents ShowResponse As System.Windows.Forms.CheckBox
 
 End Class

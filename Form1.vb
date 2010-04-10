@@ -6,9 +6,11 @@ Imports System.Runtime.InteropServices
 Imports System.Net
 Imports System.IO
 Imports System.Web
+Imports DJMatty.AMIP.ClientWrapper
 
 Public Class Form1
-
+    Private _client As AMIPClient = Nothing
+    Public musicclient As String
     ' Import functions from dwmapi.dll - get this info from the sdk dwmapi.h
 
     <DllImport("dwmapi.dll", CharSet:=CharSet.Auto)> _
@@ -158,7 +160,12 @@ Public Class Form1
                     Else
                         data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /music/" + MediaTitle.Text + Message.Text))
                     End If
-                    data.Append("&source=" + HttpUtility.UrlEncode("Winamp"))
+                    If musicclient.Length > 0 Then
+                        data.Append("&source=" + HttpUtility.UrlEncode(musicclient))
+                    Else
+                        data.Append("&source=" + HttpUtility.UrlEncode("MelScrobble"))
+                    End If
+
                 End If
             Else
                 data.Append("message=" + HttpUtility.UrlEncode(Message.Text))
@@ -186,9 +193,9 @@ Public Class Form1
 
                 ' Get the response stream into a reader  
                 reader = New StreamReader(response.GetResponseStream())
-
-                MsgBox("Post Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
-
+                If My.Settings.RequestOutPut = True Then
+                    MsgBox("Post Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
+                End If
                 'Clear Message
                 Message.Text = ""
                 CompleteCheckbox.Checked = False
@@ -204,7 +211,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dialog1.ShowDialog()
     End Sub
 
@@ -262,9 +269,9 @@ Public Class Form1
 
                 ' Get the response stream into a reader  
                 reader = New StreamReader(response.GetResponseStream())
-
-                MsgBox("Scrobble Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
-
+                If My.Settings.RequestOutPut = True Then
+                    MsgBox("Scrobble Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
+                End If
                 'Clear Message
                 Message.Text = ""
                 CompleteCheckbox.Checked = False
@@ -280,7 +287,62 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        If ExitMelScrobbleToolStripMenuItem.Checked = False Then
+            e.Cancel = True
+            Me.Hide()
+            NotifyIcon1.ShowBalloonTip(30000, "MelScrobble is still running!", "MelScrobble will still run even if the scrobble window is closed.", ToolTipIcon.Info)
+        End If
+    End Sub
+
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        If My.Settings.ScrobbleAtStartup = False Then
+            ' Me.Close()
+        End If
         mediatype.SelectedIndex = 0
+    End Sub
+
+    Private Sub ShowHideScrobbleWindowToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideScrobbleWindowToolStripMenuItem.Click
+        If Me.Visible = False Then
+            Me.Show()
+        Else
+            Me.Hide()
+        End If
+    End Sub
+
+    Private Sub SettingsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SettingsToolStripMenuItem.Click
+        Dialog1.ShowDialog()
+    End Sub
+
+    Private Sub ExitMelScrobbleToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitMelScrobbleToolStripMenuItem.Click
+        ExitMelScrobbleToolStripMenuItem.Checked = True
+        Application.Exit()
+    End Sub
+
+    Private Sub NotifyIcon1_MouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
+        Me.Show()
+    End Sub
+
+    Private Sub ContextMenuStrip1_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
+
+    End Sub
+
+    Private Sub DetectBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DetectBut.Click
+        If mediatype.SelectedIndex = 1 Then
+            'Create a new instance of AMIP
+            _client = New AMIPClient("127.0.0.1", 60333, 5000, 5, 1, True)
+            Try
+                'Set Music Info
+                MediaTitle.Text = _client.Format("%4")
+                Segment.Text = _client.Format("%2")
+                ArtistName.Text = _client.Format("%1")
+                'Set player as the source (used for Microblogging)
+                musicclient = _client.Eval("var_player")
+            Catch ex As Exception
+
+            End Try
+            'Remove the AMIP client, not needed
+            _client.Dispose()
+        End If
     End Sub
 End Class

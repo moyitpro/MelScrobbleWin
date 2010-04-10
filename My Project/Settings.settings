@@ -6,6 +6,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ScrobbleAtStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RequestOutPut" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

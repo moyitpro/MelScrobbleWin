@@ -68,13 +68,25 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public Property ScrobbleAtStartup() As Boolean
             Get
                 Return CType(Me("ScrobbleAtStartup"),Boolean)
             End Get
             Set
                 Me("ScrobbleAtStartup") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property RequestOutPut() As Boolean
+            Get
+                Return CType(Me("RequestOutPut"),Boolean)
+            End Get
+            Set
+                Me("RequestOutPut") = value
             End Set
         End Property
     End Class
