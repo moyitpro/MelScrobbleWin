@@ -43,9 +43,7 @@ Public Class Dialog1
                 data = response.GetResponseStream()
                 Dim reader As New StreamReader(data)
                 MsgBox("Login Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
-                Dim token As String
-                token = CreateTokens(Username.Text, Password.Text)
-                My.Settings.APIToken = token
+                CreateTokens(Username.Text, Password.Text)
                 If My.Settings.APIToken.Length > 0 Then
                     Button2.Enabled = False
                     Button1.Enabled = True
@@ -55,7 +53,7 @@ Public Class Dialog1
             End Try
         End If
     End Sub
-    Private Function CreateTokens(ByVal UsernameS As String, ByVal PasswordS As String) As String
+    Private Sub CreateTokens(ByVal UsernameS As String, ByVal PasswordS As String)
         Dim request As HttpWebRequest
         Dim response As HttpWebResponse = Nothing
         Dim reader As StreamReader
@@ -68,15 +66,14 @@ Public Class Dialog1
 
         ' Create the web request  
         request = DirectCast(WebRequest.Create(address), HttpWebRequest)
-
         ' Set type to POST  
         request.Method = "POST"
         request.ContentType = "application/x-www-form-urlencoded"
         request.CookieContainer = New CookieContainer()
 
         data = New StringBuilder()
-        data.Append("user=" + UsernameS)
-        data.Append("&password=" + PasswordS)
+        data.Append("user=" + HttpUtility.UrlEncode(UsernameS))
+        data.Append("&password=" + HttpUtility.UrlEncode(PasswordS))
 
         ' Create a byte array of the data we want to send  
         byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
@@ -100,15 +97,15 @@ Public Class Dialog1
             reader = New StreamReader(response.GetResponseStream())
 
             ' Console application output  
-            Return response.Cookies.Item(0).ToString
+            My.Settings.APIToken = response.Cookies.Item(0).ToString
         Catch
-            Return ""
+
         Finally
             If Not response Is Nothing Then
                 response.Close()
             End If
         End Try
-    End Function
+    End Sub
 
     Private Sub Dialog1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If My.Settings.APIToken.Length > 0 Then

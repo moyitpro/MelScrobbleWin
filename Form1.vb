@@ -1,14 +1,11 @@
 ﻿Imports System.Data
-
 Imports System.Drawing
-
 Imports System.Text
-
 Imports System.Windows.Forms
-
 Imports System.Runtime.InteropServices
 Imports System.Net
 Imports System.IO
+Imports System.Web
 
 Public Class Form1
 
@@ -118,7 +115,7 @@ Public Class Form1
         Else
             Dim requestsocket1 As HttpWebRequest = WebRequest.Create("http://melative.com/api/micro/update.json")
             requestsocket1.Method = "POST"
-            requestsocket1.Headers.Add("Cookies", My.Settings.APIToken)
+            requestsocket1.Headers.Add("Cookie", My.Settings.APIToken)
             Try
                 Dim response As WebResponse = requestsocket1.GetResponse()
                 Dim data As Stream = response.GetResponseStream()
