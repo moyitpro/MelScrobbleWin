@@ -110,27 +110,177 @@ Public Class Form1
     End Sub
 
     Private Sub PostBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PostBut.Click
-        If Message.TextLength = 0 Or MediaTitle.TextLength < 0 Then
-            MsgBox("You must enter a message or a media title to post a update.",MsgBoxStyle.Exclamation)
+        If Message.TextLength = 0 And MediaTitle.TextLength = 0 Then
+            MsgBox("You must enter a message or a media title to post a update.", MsgBoxStyle.Exclamation)
+            Status.Text = "No Message Entered."
         Else
-            Dim requestsocket1 As HttpWebRequest = WebRequest.Create("http://melative.com/api/micro/update.json")
-            requestsocket1.Method = "POST"
-            requestsocket1.Headers.Add("Cookie", My.Settings.APIToken)
+            Status.Text = "Posting Update..."
+            Dim request As HttpWebRequest
+            Dim response As HttpWebResponse = Nothing
+            Dim reader As StreamReader
+            Dim address As Uri
+            Dim data As StringBuilder
+            Dim byteData() As Byte
+            Dim postStream As Stream = Nothing
+
+            address = New Uri("http://melative.com/api/micro/update.json")
+
+            ' Create the web request  
+            request = DirectCast(WebRequest.Create(address), HttpWebRequest)
+            ' Set type to POST  
+            request.Method = "POST"
+            request.ContentType = "application/x-www-form-urlencoded"
+            request.Headers.Add("Cookie", My.Settings.APIToken)
+
+            data = New StringBuilder()
+            If MediaTitle.TextLength > 0 Then
+                Dim action As String
+                If mediatype.Text = "Anime" Then
+                    If CompleteCheckbox.Checked = True Then
+                        action = "watched"
+                    Else
+                        action = "watching"
+                    End If
+                    If Segment.TextLength > 0 Then
+                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /an/" + MediaTitle.Text + "/" + Segment.Text + ": " + Message.Text))
+                    Else
+                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /an/" + MediaTitle.Text + Message.Text))
+                    End If
+                    data.Append("&source=" + HttpUtility.UrlEncode("Media Player Classic"))
+                ElseIf mediatype.Text = "Music" Then
+                    If CompleteCheckbox.Checked = True Then
+                        action = "listened"
+                    Else
+                        action = "listening"
+                    End If
+                    If Segment.TextLength > 0 Then
+                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /music/" + MediaTitle.Text + "/" + Segment.Text + ": " + Message.Text))
+                    Else
+                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /music/" + MediaTitle.Text + Message.Text))
+                    End If
+                    data.Append("&source=" + HttpUtility.UrlEncode("Winamp"))
+                End If
+            Else
+                data.Append("message=" + HttpUtility.UrlEncode(Message.Text))
+                data.Append("&source=" + HttpUtility.UrlEncode("MelScrobble"))
+            End If
+
+
+            ' Create a byte array of the data we want to send  
+            byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
+
+            ' Set the content length in the request headers  
+            request.ContentLength = byteData.Length
+
+            ' Write data  
             Try
-                Dim response As WebResponse = requestsocket1.GetResponse()
-                Dim data As Stream = response.GetResponseStream()
-                data = response.GetResponseStream()
-                Dim reader As New StreamReader(data)
+                postStream = request.GetRequestStream()
+                postStream.Write(byteData, 0, byteData.Length)
+            Finally
+                If Not postStream Is Nothing Then postStream.Close()
+            End Try
+
+            Try
+                ' Get response  
+                response = DirectCast(request.GetResponse(), HttpWebResponse)
+
+                ' Get the response stream into a reader  
+                reader = New StreamReader(response.GetResponseStream())
+
                 MsgBox("Post Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
-                reader.Close()
-                response.Close()
-            Catch webException As WebException 
-                MsgBox("Unable to post update. Check your account info." + vbCrLf + webException.Message,MsgBoxStyle.Exclamation)
+
+                'Clear Message
+                Message.Text = ""
+                CompleteCheckbox.Checked = False
+                Status.Text = "Post Successful."
+            Catch webexception As WebException
+                MsgBox("Unable to post update. Check your account info." + vbCrLf + webexception.Message, MsgBoxStyle.Exclamation)
+                Status.Text = "Post Failed."
+            Finally
+                If Not response Is Nothing Then
+                    response.Close()
+                End If
             End Try
         End If
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dialog1.ShowDialog()
+    End Sub
+
+    Private Sub ScrobbleBut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ScrobbleBut.Click
+        If MediaTitle.TextLength = 0 Or Segment.TextLength = 0 Then
+            MsgBox("You must enter a media title and a segment to scrobble this title.", MsgBoxStyle.Exclamation)
+            Status.Text = "No Title/Segment Entered."
+        Else
+            Status.Text = "Scrobbling Title..."
+            Dim request As HttpWebRequest
+            Dim response As HttpWebResponse = Nothing
+            Dim reader As StreamReader
+            Dim address As Uri
+            Dim data As StringBuilder
+            Dim byteData() As Byte
+            Dim postStream As Stream = Nothing
+
+            address = New Uri("http://melative.com/api/library/scrobble.json")
+
+            ' Create the web request  
+            request = DirectCast(WebRequest.Create(address), HttpWebRequest)
+            ' Set type to POST  
+            request.Method = "POST"
+            request.ContentType = "application/x-www-form-urlencoded"
+            request.Headers.Add("Cookie", My.Settings.APIToken)
+            ' Set up the form
+            data = New StringBuilder()
+            If mediatype.Text = "Anime" Then
+                data.Append("anime=" + HttpUtility.UrlEncode(MediaTitle.Text))
+                data.Append("&atribute_type=" + HttpUtility.UrlEncode("episode"))
+                data.Append("&atribute_name=" + HttpUtility.UrlEncode(Segment.Text))
+            ElseIf mediatype.Text = "Music" Then
+                data.Append("music=" + HttpUtility.UrlEncode(MediaTitle.Text))
+                data.Append("&atribute_type=" + HttpUtility.UrlEncode("track"))
+                data.Append("&segment=" + HttpUtility.UrlEncode(Segment.Text))
+            End If
+
+            ' Create a byte array of the data we want to send  
+            byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
+
+            ' Set the content length in the request headers  
+            request.ContentLength = byteData.Length
+
+            ' Write data  
+            Try
+                postStream = request.GetRequestStream()
+                postStream.Write(byteData, 0, byteData.Length)
+            Finally
+                If Not postStream Is Nothing Then postStream.Close()
+            End Try
+
+            Try
+                ' Get response  
+                response = DirectCast(request.GetResponse(), HttpWebResponse)
+
+                ' Get the response stream into a reader  
+                reader = New StreamReader(response.GetResponseStream())
+
+                MsgBox("Scrobble Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
+
+                'Clear Message
+                Message.Text = ""
+                CompleteCheckbox.Checked = False
+                Status.Text = "Scrobble Successful."
+            Catch webexception As WebException
+                MsgBox("Unable to post update. Check your account info." + vbCrLf + webexception.Message, MsgBoxStyle.Exclamation)
+                Status.Text = "Scrobble Failed."
+            Finally
+                If Not response Is Nothing Then
+                    response.Close()
+                End If
+            End Try
+        End If
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        mediatype.SelectedIndex = 0
     End Sub
 End Class

@@ -31,8 +31,8 @@ Partial Class Form1
         Me.mediatype = New System.Windows.Forms.ComboBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.Segment = New System.Windows.Forms.TextBox
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
+        Me.DetectBut = New System.Windows.Forms.Button
+        Me.CompleteCheckbox = New System.Windows.Forms.CheckBox
         Me.Status = New System.Windows.Forms.Label
         Me.Button1 = New System.Windows.Forms.Button
         Me.SuspendLayout()
@@ -117,33 +117,32 @@ Partial Class Form1
         Me.Segment.Size = New System.Drawing.Size(145, 20)
         Me.Segment.TabIndex = 8
         '
-        'Button3
+        'DetectBut
         '
-        Me.Button3.Location = New System.Drawing.Point(319, 65)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(63, 20)
-        Me.Button3.TabIndex = 9
-        Me.Button3.Text = "Detect"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.DetectBut.Location = New System.Drawing.Point(319, 65)
+        Me.DetectBut.Name = "DetectBut"
+        Me.DetectBut.Size = New System.Drawing.Size(63, 20)
+        Me.DetectBut.TabIndex = 9
+        Me.DetectBut.Text = "Detect"
+        Me.DetectBut.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'CompleteCheckbox
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(230, 98)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(70, 17)
-        Me.CheckBox1.TabIndex = 10
-        Me.CheckBox1.Text = "Complete"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.CompleteCheckbox.AutoSize = True
+        Me.CompleteCheckbox.Location = New System.Drawing.Point(230, 98)
+        Me.CompleteCheckbox.Name = "CompleteCheckbox"
+        Me.CompleteCheckbox.Size = New System.Drawing.Size(70, 17)
+        Me.CompleteCheckbox.TabIndex = 10
+        Me.CompleteCheckbox.Text = "Complete"
+        Me.CompleteCheckbox.UseVisualStyleBackColor = True
         '
         'Status
         '
         Me.Status.AutoSize = True
         Me.Status.Location = New System.Drawing.Point(12, 134)
         Me.Status.Name = "Status"
-        Me.Status.Size = New System.Drawing.Size(37, 13)
+        Me.Status.Size = New System.Drawing.Size(0, 13)
         Me.Status.TabIndex = 11
-        Me.Status.Text = "Status"
         '
         'Button1
         '
@@ -161,8 +160,8 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(414, 162)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Status)
-        Me.Controls.Add(Me.CheckBox1)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.CompleteCheckbox)
+        Me.Controls.Add(Me.DetectBut)
         Me.Controls.Add(Me.Segment)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.mediatype)
@@ -188,8 +187,8 @@ Partial Class Form1
     Friend WithEvents mediatype As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Segment As System.Windows.Forms.TextBox
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents DetectBut As System.Windows.Forms.Button
+    Friend WithEvents CompleteCheckbox As System.Windows.Forms.CheckBox
     Friend WithEvents Status As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
 
