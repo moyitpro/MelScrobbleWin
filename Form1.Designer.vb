@@ -40,18 +40,21 @@ Partial Class Form1
         Me.ArtistName = New System.Windows.Forms.TextBox
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AboutMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator
         Me.ShowHideScrobbleWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator
         Me.ExitMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PostBut
         '
-        Me.PostBut.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PostBut.Location = New System.Drawing.Point(333, 148)
+        Me.PostBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PostBut.Location = New System.Drawing.Point(307, 148)
         Me.PostBut.Name = "PostBut"
         Me.PostBut.Size = New System.Drawing.Size(75, 23)
         Me.PostBut.TabIndex = 0
@@ -60,8 +63,8 @@ Partial Class Form1
         '
         'ScrobbleBut
         '
-        Me.ScrobbleBut.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ScrobbleBut.Location = New System.Drawing.Point(252, 148)
+        Me.ScrobbleBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ScrobbleBut.Location = New System.Drawing.Point(229, 148)
         Me.ScrobbleBut.Name = "ScrobbleBut"
         Me.ScrobbleBut.Size = New System.Drawing.Size(75, 23)
         Me.ScrobbleBut.TabIndex = 1
@@ -71,7 +74,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(19, 15)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 13)
@@ -81,17 +84,18 @@ Partial Class Form1
         '
         'Message
         '
-        Me.Message.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Message.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Message.Location = New System.Drawing.Point(78, 15)
         Me.Message.Multiline = True
         Me.Message.Name = "Message"
+        Me.Message.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
         Me.Message.Size = New System.Drawing.Size(304, 44)
         Me.Message.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(33, 69)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 13)
@@ -101,16 +105,16 @@ Partial Class Form1
         '
         'MediaTitle
         '
-        Me.MediaTitle.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MediaTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MediaTitle.Location = New System.Drawing.Point(78, 66)
         Me.MediaTitle.Name = "MediaTitle"
-        Me.MediaTitle.Size = New System.Drawing.Size(145, 21)
+        Me.MediaTitle.Size = New System.Drawing.Size(145, 20)
         Me.MediaTitle.TabIndex = 5
         '
         'mediatype
         '
         Me.mediatype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.mediatype.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mediatype.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.mediatype.FormattingEnabled = True
         Me.mediatype.Items.AddRange(New Object() {"Anime", "Music"})
         Me.mediatype.Location = New System.Drawing.Point(229, 66)
@@ -121,28 +125,28 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(20, 96)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(53, 13)
+        Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Segment:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Segment
         '
-        Me.Segment.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Segment.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Segment.Location = New System.Drawing.Point(78, 93)
         Me.Segment.Name = "Segment"
-        Me.Segment.Size = New System.Drawing.Size(304, 21)
+        Me.Segment.Size = New System.Drawing.Size(304, 20)
         Me.Segment.TabIndex = 8
         '
         'DetectBut
         '
-        Me.DetectBut.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DetectBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DetectBut.Location = New System.Drawing.Point(319, 65)
         Me.DetectBut.Name = "DetectBut"
-        Me.DetectBut.Size = New System.Drawing.Size(63, 20)
+        Me.DetectBut.Size = New System.Drawing.Size(63, 22)
         Me.DetectBut.TabIndex = 9
         Me.DetectBut.Text = "Detect"
         Me.DetectBut.UseVisualStyleBackColor = True
@@ -150,10 +154,10 @@ Partial Class Form1
         'CompleteCheckbox
         '
         Me.CompleteCheckbox.AutoSize = True
-        Me.CompleteCheckbox.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CompleteCheckbox.Location = New System.Drawing.Point(312, 122)
+        Me.CompleteCheckbox.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CompleteCheckbox.Location = New System.Drawing.Point(302, 123)
         Me.CompleteCheckbox.Name = "CompleteCheckbox"
-        Me.CompleteCheckbox.Size = New System.Drawing.Size(71, 17)
+        Me.CompleteCheckbox.Size = New System.Drawing.Size(70, 17)
         Me.CompleteCheckbox.TabIndex = 10
         Me.CompleteCheckbox.Text = "Complete"
         Me.CompleteCheckbox.UseVisualStyleBackColor = True
@@ -161,7 +165,7 @@ Partial Class Form1
         'Status
         '
         Me.Status.AutoSize = True
-        Me.Status.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Status.Location = New System.Drawing.Point(11, 153)
         Me.Status.Name = "Status"
         Me.Status.Size = New System.Drawing.Size(0, 13)
@@ -170,19 +174,19 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(39, 125)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(37, 13)
+        Me.Label4.Size = New System.Drawing.Size(33, 13)
         Me.Label4.TabIndex = 13
         Me.Label4.Text = "Artist:"
         '
         'ArtistName
         '
-        Me.ArtistName.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ArtistName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ArtistName.Location = New System.Drawing.Point(78, 121)
         Me.ArtistName.Name = "ArtistName"
-        Me.ArtistName.Size = New System.Drawing.Size(218, 21)
+        Me.ArtistName.Size = New System.Drawing.Size(218, 20)
         Me.ArtistName.TabIndex = 14
         '
         'NotifyIcon1
@@ -195,9 +199,22 @@ Partial Class Form1
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
+        Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Menu
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(230, 82)
+        Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(230, 110)
+        '
+        'AboutMelScrobbleToolStripMenuItem
+        '
+        Me.AboutMelScrobbleToolStripMenuItem.Name = "AboutMelScrobbleToolStripMenuItem"
+        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.AboutMelScrobbleToolStripMenuItem.Text = "About MelScrobble"
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(226, 6)
         '
         'ShowHideScrobbleWindowToolStripMenuItem
         '
@@ -227,16 +244,21 @@ Partial Class Form1
         Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.ExitMelScrobbleToolStripMenuItem.Text = "E&xit MelScrobble"
         '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(414, 184)
+        Me.ClientSize = New System.Drawing.Size(390, 177)
         Me.Controls.Add(Me.ArtistName)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Status)
-        Me.Controls.Add(Me.CompleteCheckbox)
         Me.Controls.Add(Me.DetectBut)
+        Me.Controls.Add(Me.CompleteCheckbox)
         Me.Controls.Add(Me.Segment)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.mediatype)
@@ -244,8 +266,10 @@ Partial Class Form1
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Message)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.ScrobbleBut)
         Me.Controls.Add(Me.PostBut)
+        Me.Controls.Add(Me.ScrobbleBut)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.Text = "MelScrobble"
@@ -275,5 +299,8 @@ Partial Class Form1
     Friend WithEvents SettingsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ExitMelScrobbleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents AboutMelScrobbleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripSeparator
 
 End Class

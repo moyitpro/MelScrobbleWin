@@ -11,105 +11,6 @@ Imports DJMatty.AMIP.ClientWrapper
 Public Class Form1
     Private _client As AMIPClient = Nothing
     Public musicclient As String
-    ' Import functions from dwmapi.dll - get this info from the sdk dwmapi.h
-
-    <DllImport("dwmapi.dll", CharSet:=CharSet.Auto)> _
-    Public Shared Sub DwmExtendFrameIntoClientArea(ByVal hWnd As System.IntPtr, ByRef pMargins As Margins)
-
-    End Sub
-
-    <DllImport("dwmapi.dll", CharSet:=CharSet.Auto)> _
-    Public Shared Sub DwmIsCompositionEnabled(ByRef IsIt As Boolean)
-
-    End Sub
-
-    ' Create the brush that'll work around the Alpha transparency issue
-
-    Private DWMFrame As SolidBrush = New SolidBrush(Color.Black)
-
-    Dim BlurBehind As Boolean = False
-
-    Dim MaxTrans As Boolean = False
-
-    Dim blurect As Boolean = False
-
-    ' Create an instance of the Margins struct for use in our form
-
-    Private inset As Margins = New Margins
-
-
-
-    ' Define the Margins struct - get this from dwmapi.h
-
-    Public Structure Margins
-
-        Public Left As Integer
-
-        Public Right As Integer
-
-        Public Top As Integer
-
-        Public Bottom As Integer
-
-    End Structure
-
-    Public Sub New()
-
-        InitializeComponent()
-
-        ' Set the Margins to their default values
-
-        inset.Top = 0
-
-        inset.Left = 0
-
-        inset.Right = 0
-
-        inset.Bottom = 0
-
-        ' Check if DWM is enabled. This is a pretty stupid way to check, since it requires dwmapi.dll to be present anyway...
-
-        Dim isit As Boolean = False
-
-        DwmIsCompositionEnabled(isit)
-
-        If isit Then
-
-            ' If DWM is enabled, call the function that gives us glass, passing a reference to our inset Margins
-
-            DwmExtendFrameIntoClientArea(Me.Handle, inset)
-
-        Else
-
-            ' If DWM isn't enabled, shout it out
-
-            MessageBox.Show("DWM isn't enabled")
-
-        End If
-
-    End Sub
-
-    Protected Overrides Sub OnPaint(ByVal e As System.Windows.Forms.PaintEventArgs)
-
-        MyBase.OnPaint(e)
-
-        Me.PaintSquare(e, Me.DWMFrame)
-
-    End Sub
-
-    Private Sub PaintSquare(ByRef e As System.Windows.Forms.PaintEventArgs, ByVal b As SolidBrush)
-
-        e.Graphics.FillRectangle(b, 0, 0, Width, inset.Top)
-
-        e.Graphics.FillRectangle(b, 0, 0, inset.Left, Height)
-
-        ' Note the numbers ( -14, -34) are just trial-and-error values, used to fix the glass... try omitting them, you'll get the idea.
-
-        e.Graphics.FillRectangle(b, Width - inset.Right - 14, 0, inset.Right, Height)
-
-        e.Graphics.FillRectangle(b, 0, Height - inset.Bottom - 34, Width, inset.Bottom)
-
-    End Sub
 
     Private Sub PostBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PostBut.Click
         If Message.TextLength = 0 And MediaTitle.TextLength = 0 Then
@@ -300,6 +201,26 @@ Public Class Form1
             ' Me.Close()
         End If
         mediatype.SelectedIndex = 0
+        SetFonts()
+    End Sub
+
+    Private Sub SetFonts()
+        Dim sys As Font = SystemFonts.CaptionFont
+        Label1.Font = sys
+        Label2.Font = sys
+        Label3.Font = sys
+        Label4.Font = sys
+        Status.Font = sys
+        ScrobbleBut.Font = sys
+        PostBut.Font = sys
+        Message.Font = sys
+        MediaTitle.Font = sys
+        mediatype.Font = sys
+        mediatype.Font = sys
+        Segment.Font = sys
+        ArtistName.Font = sys
+        CompleteCheckbox.Font = sys
+        DetectBut.Font = sys
     End Sub
 
     Private Sub ShowHideScrobbleWindowToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideScrobbleWindowToolStripMenuItem.Click
@@ -323,10 +244,6 @@ Public Class Form1
         Me.Show()
     End Sub
 
-    Private Sub ContextMenuStrip1_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
-
-    End Sub
-
     Private Sub DetectBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DetectBut.Click
         If mediatype.SelectedIndex = 1 Then
             'Create a new instance of AMIP
@@ -343,6 +260,21 @@ Public Class Form1
             End Try
             'Remove the AMIP client, not needed
             _client.Dispose()
+        Else
+            MsgBox("Not Implemented yet.", MsgBoxStyle.Information)
         End If
+    End Sub
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        If My.Settings.ScrobbleAtStartup = False Then
+            Me.Hide()
+            Timer1.Enabled = False
+        Else
+            Timer1.Enabled = False
+        End If
+    End Sub
+
+    Private Sub AboutMelScrobbleToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutMelScrobbleToolStripMenuItem.Click
+        MsgBox("MelScrobble " + My.Application.Info.Version.ToString + vbCrLf + vbCrLf + "Melative Scrobbler for Windows running on " + My.Computer.Info.OSFullName.ToString + vbCrLf + vbCrLf + "Copyright 2009-2010 James M. All Rights Reserved" + vbCrLf + "Licensed under GNU Public License v3", MsgBoxStyle.Information, "About")
     End Sub
 End Class

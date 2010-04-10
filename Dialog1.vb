@@ -98,6 +98,7 @@ Public Class Dialog1
 
             ' Console application output  
             My.Settings.APIToken = response.Cookies.Item(0).ToString
+            My.Settings.Save()
         Catch
 
         Finally
@@ -112,6 +113,27 @@ Public Class Dialog1
             Button2.Enabled = False
             Button1.Enabled = True
         End If
+        SetFonts()
+    End Sub
+
+    Private Sub SetFonts()
+        Dim sys As Font = SystemFonts.CaptionFont
+        Label1.Font = sys
+        Label2.Font = sys
+        Label3.Font = sys
+        Label4.Font = sys
+        Label5.Font = sys
+        Label6.Font = sys
+        Cancel_Button.Font = sys
+        OK_Button.Font = sys
+        ShowAtStartup.Font = sys
+        ShowResponse.Font = sys
+        Username.Font = sys
+        Password.Font = sys
+        Button1.Font = sys
+        Button2.Font = sys
+        Button3.Font = sys
+        TabControl1.Font = sys
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
@@ -119,12 +141,15 @@ Public Class Dialog1
         choice = MsgBox("Are you sure you want to delete the token from this computer?" + vbCrLf + vbCrLf + "Once done, this action cannot be undone.", MsgBoxStyle.YesNo + MsgBoxStyle.Question)
         If choice = 6 Then
             My.Settings.APIToken = ""
+            My.Settings.Save()
             If My.Settings.APIToken.Length = 0 Then
                 Button2.Enabled = True
                 Button1.Enabled = False
             End If
         End If
+    End Sub
 
-
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        System.Diagnostics.Process.Start("http://melative.com/register")
     End Sub
 End Class

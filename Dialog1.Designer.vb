@@ -27,7 +27,9 @@ Partial Class Dialog1
         Me.Cancel_Button = New System.Windows.Forms.Button
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.ShowResponse = New System.Windows.Forms.CheckBox
         Me.Label6 = New System.Windows.Forms.Label
+        Me.ShowAtStartup = New System.Windows.Forms.CheckBox
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.Button3 = New System.Windows.Forms.Button
         Me.Label5 = New System.Windows.Forms.Label
@@ -40,8 +42,6 @@ Partial Class Dialog1
         Me.Password = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
-        Me.ShowAtStartup = New System.Windows.Forms.CheckBox
-        Me.ShowResponse = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -58,7 +58,7 @@ Partial Class Dialog1
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
         Me.TableLayoutPanel1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(277, 274)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(277, 288)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -94,7 +94,7 @@ Partial Class Dialog1
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(407, 252)
+        Me.TabControl1.Size = New System.Drawing.Size(407, 273)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
@@ -111,6 +111,18 @@ Partial Class Dialog1
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'ShowResponse
+        '
+        Me.ShowResponse.AutoSize = True
+        Me.ShowResponse.Checked = Global.WindowsApplication1.My.MySettings.Default.RequestOutPut
+        Me.ShowResponse.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "RequestOutPut", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ShowResponse.Location = New System.Drawing.Point(35, 66)
+        Me.ShowResponse.Name = "ShowResponse"
+        Me.ShowResponse.Size = New System.Drawing.Size(125, 17)
+        Me.ShowResponse.TabIndex = 3
+        Me.ShowResponse.Text = "Show Response Info"
+        Me.ShowResponse.UseVisualStyleBackColor = True
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -119,6 +131,20 @@ Partial Class Dialog1
         Me.Label6.Size = New System.Drawing.Size(44, 13)
         Me.Label6.TabIndex = 2
         Me.Label6.Text = "General"
+        '
+        'ShowAtStartup
+        '
+        Me.ShowAtStartup.AutoSize = True
+        Me.ShowAtStartup.Checked = Global.WindowsApplication1.My.MySettings.Default.ScrobbleAtStartup
+        Me.ShowAtStartup.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShowAtStartup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "ScrobbleAtStartup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ShowAtStartup.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ShowAtStartup.Location = New System.Drawing.Point(35, 43)
+        Me.ShowAtStartup.Name = "ShowAtStartup"
+        Me.ShowAtStartup.Size = New System.Drawing.Size(189, 17)
+        Me.ShowAtStartup.TabIndex = 1
+        Me.ShowAtStartup.Text = "Show Scrobble Window at Startup"
+        Me.ShowAtStartup.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -133,25 +159,25 @@ Partial Class Dialog1
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(399, 226)
+        Me.TabPage2.Size = New System.Drawing.Size(399, 247)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Login"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(257, 186)
+        Me.Button3.Location = New System.Drawing.Point(227, 188)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(132, 21)
+        Me.Button3.Size = New System.Drawing.Size(162, 21)
         Me.Button3.TabIndex = 6
         Me.Button3.Text = "Register for an Account"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Label5
         '
-        Me.Label5.Location = New System.Drawing.Point(20, 176)
+        Me.Label5.Location = New System.Drawing.Point(14, 171)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(193, 49)
+        Me.Label5.Size = New System.Drawing.Size(193, 73)
         Me.Label5.TabIndex = 5
         Me.Label5.Text = "If you don't have a Melative Account, you can register for one by clicking on the" & _
             " button on the right."
@@ -244,38 +270,13 @@ Partial Class Dialog1
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login"
         '
-        'ShowAtStartup
-        '
-        Me.ShowAtStartup.AutoSize = True
-        Me.ShowAtStartup.Checked = Global.WindowsApplication1.My.MySettings.Default.ScrobbleAtStartup
-        Me.ShowAtStartup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "ScrobbleAtStartup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ShowAtStartup.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ShowAtStartup.Location = New System.Drawing.Point(35, 43)
-        Me.ShowAtStartup.Name = "ShowAtStartup"
-        Me.ShowAtStartup.Size = New System.Drawing.Size(189, 17)
-        Me.ShowAtStartup.TabIndex = 1
-        Me.ShowAtStartup.Text = "Show Scrobble Window at Startup"
-        Me.ShowAtStartup.UseVisualStyleBackColor = True
-        '
-        'ShowResponse
-        '
-        Me.ShowResponse.AutoSize = True
-        Me.ShowResponse.Checked = Global.WindowsApplication1.My.MySettings.Default.RequestOutPut
-        Me.ShowResponse.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "RequestOutPut", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ShowResponse.Location = New System.Drawing.Point(35, 66)
-        Me.ShowResponse.Name = "ShowResponse"
-        Me.ShowResponse.Size = New System.Drawing.Size(125, 17)
-        Me.ShowResponse.TabIndex = 3
-        Me.ShowResponse.Text = "Show Response Info"
-        Me.ShowResponse.UseVisualStyleBackColor = True
-        '
         'Dialog1
         '
         Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(435, 315)
+        Me.ClientSize = New System.Drawing.Size(435, 329)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
