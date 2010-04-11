@@ -54,7 +54,7 @@ Partial Class Form1
         'PostBut
         '
         Me.PostBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PostBut.Location = New System.Drawing.Point(307, 148)
+        Me.PostBut.Location = New System.Drawing.Point(303, 148)
         Me.PostBut.Name = "PostBut"
         Me.PostBut.Size = New System.Drawing.Size(75, 23)
         Me.PostBut.TabIndex = 0
@@ -64,7 +64,7 @@ Partial Class Form1
         'ScrobbleBut
         '
         Me.ScrobbleBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ScrobbleBut.Location = New System.Drawing.Point(229, 148)
+        Me.ScrobbleBut.Location = New System.Drawing.Point(225, 148)
         Me.ScrobbleBut.Name = "ScrobbleBut"
         Me.ScrobbleBut.Size = New System.Drawing.Size(75, 23)
         Me.ScrobbleBut.TabIndex = 1
@@ -75,7 +75,7 @@ Partial Class Form1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(19, 15)
+        Me.Label1.Location = New System.Drawing.Point(15, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 13)
         Me.Label1.TabIndex = 2
@@ -85,7 +85,7 @@ Partial Class Form1
         'Message
         '
         Me.Message.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Message.Location = New System.Drawing.Point(78, 15)
+        Me.Message.Location = New System.Drawing.Point(74, 12)
         Me.Message.Multiline = True
         Me.Message.Name = "Message"
         Me.Message.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
@@ -96,7 +96,7 @@ Partial Class Form1
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(33, 69)
+        Me.Label2.Location = New System.Drawing.Point(29, 66)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 13)
         Me.Label2.TabIndex = 4
@@ -106,7 +106,7 @@ Partial Class Form1
         'MediaTitle
         '
         Me.MediaTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MediaTitle.Location = New System.Drawing.Point(78, 66)
+        Me.MediaTitle.Location = New System.Drawing.Point(74, 63)
         Me.MediaTitle.Name = "MediaTitle"
         Me.MediaTitle.Size = New System.Drawing.Size(145, 20)
         Me.MediaTitle.TabIndex = 5
@@ -117,7 +117,7 @@ Partial Class Form1
         Me.mediatype.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.mediatype.FormattingEnabled = True
         Me.mediatype.Items.AddRange(New Object() {"Anime", "Music"})
-        Me.mediatype.Location = New System.Drawing.Point(229, 66)
+        Me.mediatype.Location = New System.Drawing.Point(225, 63)
         Me.mediatype.Name = "mediatype"
         Me.mediatype.Size = New System.Drawing.Size(83, 21)
         Me.mediatype.TabIndex = 6
@@ -126,7 +126,7 @@ Partial Class Form1
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(20, 96)
+        Me.Label3.Location = New System.Drawing.Point(16, 93)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 7
@@ -136,7 +136,7 @@ Partial Class Form1
         'Segment
         '
         Me.Segment.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Segment.Location = New System.Drawing.Point(78, 93)
+        Me.Segment.Location = New System.Drawing.Point(74, 90)
         Me.Segment.Name = "Segment"
         Me.Segment.Size = New System.Drawing.Size(304, 20)
         Me.Segment.TabIndex = 8
@@ -144,7 +144,7 @@ Partial Class Form1
         'DetectBut
         '
         Me.DetectBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DetectBut.Location = New System.Drawing.Point(319, 65)
+        Me.DetectBut.Location = New System.Drawing.Point(315, 62)
         Me.DetectBut.Name = "DetectBut"
         Me.DetectBut.Size = New System.Drawing.Size(63, 22)
         Me.DetectBut.TabIndex = 9
@@ -155,7 +155,7 @@ Partial Class Form1
         '
         Me.CompleteCheckbox.AutoSize = True
         Me.CompleteCheckbox.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CompleteCheckbox.Location = New System.Drawing.Point(302, 123)
+        Me.CompleteCheckbox.Location = New System.Drawing.Point(298, 120)
         Me.CompleteCheckbox.Name = "CompleteCheckbox"
         Me.CompleteCheckbox.Size = New System.Drawing.Size(70, 17)
         Me.CompleteCheckbox.TabIndex = 10
@@ -165,8 +165,9 @@ Partial Class Form1
         'Status
         '
         Me.Status.AutoSize = True
+        Me.Status.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.WindowsApplication1.My.MySettings.Default, "WindowPossition", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Status.Location = New System.Drawing.Point(11, 153)
+        Me.Status.Location = Global.WindowsApplication1.My.MySettings.Default.WindowPosition
         Me.Status.Name = "Status"
         Me.Status.Size = New System.Drawing.Size(0, 13)
         Me.Status.TabIndex = 11
@@ -175,7 +176,7 @@ Partial Class Form1
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(39, 125)
+        Me.Label4.Location = New System.Drawing.Point(35, 122)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(33, 13)
         Me.Label4.TabIndex = 13
@@ -184,7 +185,7 @@ Partial Class Form1
         'ArtistName
         '
         Me.ArtistName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ArtistName.Location = New System.Drawing.Point(78, 121)
+        Me.ArtistName.Location = New System.Drawing.Point(74, 118)
         Me.ArtistName.Name = "ArtistName"
         Me.ArtistName.Size = New System.Drawing.Size(218, 20)
         Me.ArtistName.TabIndex = 14
@@ -255,8 +256,9 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(390, 177)
         Me.Controls.Add(Me.ArtistName)
-        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Status)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Message)
         Me.Controls.Add(Me.DetectBut)
         Me.Controls.Add(Me.CompleteCheckbox)
         Me.Controls.Add(Me.Segment)
@@ -264,10 +266,9 @@ Partial Class Form1
         Me.Controls.Add(Me.mediatype)
         Me.Controls.Add(Me.MediaTitle)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Message)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.PostBut)
         Me.Controls.Add(Me.ScrobbleBut)
+        Me.Controls.Add(Me.PostBut)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False

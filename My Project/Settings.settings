@@ -11,5 +11,8 @@
     <Setting Name="RequestOutPut" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="WindowPosition" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">12, 153</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

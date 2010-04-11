@@ -7,6 +7,7 @@ Imports System.Net
 Imports System.IO
 Imports System.Web
 Imports DJMatty.AMIP.ClientWrapper
+Imports System.Text.RegularExpressions
 
 Public Class Form1
     Private _client As AMIPClient = Nothing
@@ -255,14 +256,34 @@ Public Class Form1
                 ArtistName.Text = _client.Format("%1")
                 'Set player as the source (used for Microblogging)
                 musicclient = _client.Eval("var_player")
+                Status.Text = "Detected current " + musicclient + " track."
             Catch ex As Exception
-
+                Status.Text = "Error: No track is playing."
             End Try
             'Remove the AMIP client, not needed
             _client.Dispose()
         Else
-            MsgBox("Not Implemented yet.", MsgBoxStyle.Information)
-        End If
+            'Retrieve Recently Played file from registry
+            Dim file As String
+            file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
+            If file.Length > 0 Then
+                'Regex Time
+                file = Regex.Replace(file, "^.+\\", "")
+                file = Regex.Replace(file, "\.\w+$", "")
+                file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
+                file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
+                file = Regex.Replace(file, "_", " ")
+                'Output to fields
+                MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
+                Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "Episode ")
+                Status.Text = "Detected currently playing video."
+
+            Else
+                'Show error
+                MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
+                Status.Text = "Detection failed."
+            End If
+            End If
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
