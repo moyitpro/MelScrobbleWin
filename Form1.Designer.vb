@@ -35,7 +35,6 @@ Partial Class Form1
         Me.Segment = New System.Windows.Forms.TextBox
         Me.DetectBut = New System.Windows.Forms.Button
         Me.CompleteCheckbox = New System.Windows.Forms.CheckBox
-        Me.Status = New System.Windows.Forms.Label
         Me.Label4 = New System.Windows.Forms.Label
         Me.ArtistName = New System.Windows.Forms.TextBox
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
@@ -48,6 +47,7 @@ Partial Class Form1
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator
         Me.ExitMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Status = New System.Windows.Forms.Label
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -162,16 +162,6 @@ Partial Class Form1
         Me.CompleteCheckbox.Text = "Complete"
         Me.CompleteCheckbox.UseVisualStyleBackColor = True
         '
-        'Status
-        '
-        Me.Status.AutoSize = True
-        Me.Status.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.WindowsApplication1.My.MySettings.Default, "WindowPossition", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Status.Location = Global.WindowsApplication1.My.MySettings.Default.WindowPosition
-        Me.Status.Name = "Status"
-        Me.Status.Size = New System.Drawing.Size(0, 13)
-        Me.Status.TabIndex = 11
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -250,15 +240,24 @@ Partial Class Form1
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1
         '
+        'Status
+        '
+        Me.Status.AutoSize = True
+        Me.Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Status.Location = New System.Drawing.Point(12, 153)
+        Me.Status.Name = "Status"
+        Me.Status.Size = New System.Drawing.Size(0, 13)
+        Me.Status.TabIndex = 11
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(390, 177)
         Me.Controls.Add(Me.ArtistName)
-        Me.Controls.Add(Me.Status)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Message)
+        Me.Controls.Add(Me.Status)
         Me.Controls.Add(Me.DetectBut)
         Me.Controls.Add(Me.CompleteCheckbox)
         Me.Controls.Add(Me.Segment)
@@ -269,8 +268,10 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ScrobbleBut)
         Me.Controls.Add(Me.PostBut)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.WindowsApplication1.My.MySettings.Default, "WindowPosition", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Location = Global.WindowsApplication1.My.MySettings.Default.WindowPosition
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.Text = "MelScrobble"

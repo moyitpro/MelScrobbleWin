@@ -198,11 +198,7 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If My.Settings.ScrobbleAtStartup = False Then
-            ' Me.Close()
-        End If
-        mediatype.SelectedIndex = 0
-        SetFonts()
+
     End Sub
 
     Private Sub SetFonts()
@@ -264,29 +260,36 @@ Public Class Form1
             _client.Dispose()
         Else
             'Retrieve Recently Played file from registry
-            Dim file As String
-            file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
-            If file.Length > 0 Then
-                'Regex Time
-                file = Regex.Replace(file, "^.+\\", "")
-                file = Regex.Replace(file, "\.\w+$", "")
-                file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
-                file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
-                file = Regex.Replace(file, "_", " ")
-                'Output to fields
-                MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
-                Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "Episode ")
-                Status.Text = "Detected currently playing video."
+            Try
+                Dim file As String
+                file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
+                If file.Length > 0 Then
+                    'Regex Time
+                    file = Regex.Replace(file, "^.+\\", "")
+                    file = Regex.Replace(file, "\.\w+$", "")
+                    file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
+                    file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
+                    file = Regex.Replace(file, "_", " ")
+                    'Output to fields
+                    MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
+                    Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "Episode ")
+                    Status.Text = "Detected currently playing video."
 
-            Else
-                'Show error
+                Else
+                    'Show error
+                    MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
+                    Status.Text = "Detection failed."
+                End If
+            Catch
                 MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
                 Status.Text = "Detection failed."
-            End If
+            End Try
             End If
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        mediatype.SelectedIndex = 0
+        SetFonts()
         If My.Settings.ScrobbleAtStartup = False Then
             Me.Hide()
             Timer1.Enabled = False
