@@ -267,8 +267,8 @@ Public Class Form1
                     'Regex Time
                     file = Regex.Replace(file, "^.+\\", "")
                     file = Regex.Replace(file, "\.\w+$", "")
-                    file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
-                    file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
+                    file = Regex.Replace(file, "[\s_]*\[[^\]]+\]\s*", "")
+                    file = Regex.Replace(file, "[\s_]*\([^\)]+\)$", "")
                     file = Regex.Replace(file, "_", " ")
                     'Output to fields
                     MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
