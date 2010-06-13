@@ -101,6 +101,30 @@ Namespace My
                 Me("WindowPosition") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Mediatype() As String
+            Get
+                Return CType(Me("Mediatype"),String)
+            End Get
+            Set
+                Me("Mediatype") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Setting() As Integer
+            Get
+                Return CType(Me("Setting"),Integer)
+            End Get
+            Set
+                Me("Setting") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -44,17 +44,22 @@ Partial Class Form1
         Me.ShowHideScrobbleWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
+        Me.EnableScrobblingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator
         Me.ExitMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Status = New System.Windows.Forms.Label
+        Me.Scrobble = New System.Windows.Forms.Timer(Me.components)
+        Me.SendtoTwitter = New System.Windows.Forms.CheckBox
+        Me.ToolTips = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PostBut
         '
         Me.PostBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PostBut.Location = New System.Drawing.Point(303, 148)
+        Me.PostBut.Location = New System.Drawing.Point(303, 158)
         Me.PostBut.Name = "PostBut"
         Me.PostBut.Size = New System.Drawing.Size(75, 23)
         Me.PostBut.TabIndex = 0
@@ -64,7 +69,7 @@ Partial Class Form1
         'ScrobbleBut
         '
         Me.ScrobbleBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ScrobbleBut.Location = New System.Drawing.Point(225, 148)
+        Me.ScrobbleBut.Location = New System.Drawing.Point(225, 158)
         Me.ScrobbleBut.Name = "ScrobbleBut"
         Me.ScrobbleBut.Size = New System.Drawing.Size(75, 23)
         Me.ScrobbleBut.TabIndex = 1
@@ -191,10 +196,10 @@ Partial Class Form1
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Menu
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem4, Me.EnableScrobblingToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(230, 110)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(230, 138)
         '
         'AboutMelScrobbleToolStripMenuItem
         '
@@ -224,6 +229,17 @@ Partial Class Form1
         Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings..."
         '
+        'ToolStripMenuItem4
+        '
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(226, 6)
+        '
+        'EnableScrobblingToolStripMenuItem
+        '
+        Me.EnableScrobblingToolStripMenuItem.Name = "EnableScrobblingToolStripMenuItem"
+        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.EnableScrobblingToolStripMenuItem.Text = "Enable Scrobbling"
+        '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
@@ -244,22 +260,41 @@ Partial Class Form1
         '
         Me.Status.AutoSize = True
         Me.Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Status.Location = New System.Drawing.Point(12, 153)
+        Me.Status.Location = New System.Drawing.Point(15, 163)
         Me.Status.Name = "Status"
         Me.Status.Size = New System.Drawing.Size(0, 13)
         Me.Status.TabIndex = 11
+        '
+        'Scrobble
+        '
+        Me.Scrobble.Interval = 300000
+        '
+        'SendtoTwitter
+        '
+        Me.SendtoTwitter.AutoSize = True
+        Me.SendtoTwitter.Location = New System.Drawing.Point(74, 144)
+        Me.SendtoTwitter.Name = "SendtoTwitter"
+        Me.SendtoTwitter.Size = New System.Drawing.Size(98, 17)
+        Me.SendtoTwitter.TabIndex = 15
+        Me.SendtoTwitter.Text = "Send to Twitter"
+        Me.SendtoTwitter.UseVisualStyleBackColor = True
+        '
+        'ToolTips
+        '
+        Me.ToolTips.IsBalloon = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(390, 177)
+        Me.ClientSize = New System.Drawing.Size(390, 188)
         Me.Controls.Add(Me.ArtistName)
+        Me.Controls.Add(Me.SendtoTwitter)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Message)
-        Me.Controls.Add(Me.Status)
         Me.Controls.Add(Me.DetectBut)
         Me.Controls.Add(Me.CompleteCheckbox)
+        Me.Controls.Add(Me.Status)
         Me.Controls.Add(Me.Segment)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.mediatype)
@@ -304,5 +339,10 @@ Partial Class Form1
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents AboutMelScrobbleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripSeparator
+    Public WithEvents Scrobble As System.Windows.Forms.Timer
+    Friend WithEvents ToolStripMenuItem4 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents EnableScrobblingToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SendtoTwitter As System.Windows.Forms.CheckBox
+    Friend WithEvents ToolTips As System.Windows.Forms.ToolTip
 
 End Class

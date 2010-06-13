@@ -14,5 +14,11 @@
     <Setting Name="WindowPosition" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">12, 153</Value>
     </Setting>
+    <Setting Name="Mediatype" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

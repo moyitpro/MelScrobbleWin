@@ -118,7 +118,7 @@ Public Class Dialog1
     End Sub
 
     Private Sub SetFonts()
-        Dim sys As Font = SystemFonts.CaptionFont
+        Dim sys As Font = SystemFonts.DialogFont
         Label1.Font = sys
         Label2.Font = sys
         Label3.Font = sys
