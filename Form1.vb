@@ -290,6 +290,8 @@ Public Class Form1
                     'Output to fields
                     MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
                     Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "")
+                    'Trim Whitespace
+                    MediaTitle.Text = Trim(MediaTitle.Text)
                     Status.Text = "Detected currently playing video."
 
                 Else
