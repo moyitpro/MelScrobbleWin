@@ -417,6 +417,7 @@ Public Class Form1
                 CompleteCheckbox.Checked = False
                 Status.Text = "Scrobble Successful."
                 SendGrowlMessage("Scrobble Successful!", scrobblemediatitle & " - " & scrobblemediasegment)
+                NotifyIcon1.Text = "MelScrobble - Last Scrobbled: " & scrobblemediatitle & " - " & scrobblemediasegment
                 scrobblesuccess = True
             Catch webexception As WebException
                 Status.Text = "Scrobble Failed."
@@ -430,8 +431,12 @@ Public Class Form1
         End If
     End Sub
     Public Sub SendGrowlMessage(ByVal Title As String, ByVal Message As String)
-        Dim n As New Notification(Me.app.Name, Me.nt.Name, DateTime.Now.Ticks.ToString(), Title, Message)
-        growl.Notify(n)
+        If growl.IsGrowlRunning = True Then
+            Dim n As New Notification(Me.app.Name, Me.nt.Name, DateTime.Now.Ticks.ToString(), Title, Message)
+            growl.Notify(n)
+        Else
+            NotifyIcon1.ShowBalloonTip(30000, Title, Message, ToolTipIcon.Info)
+        End If
     End Sub
     Public Sub SetToolTips()
         ToolTips.SetToolTip(Message, "Enter your message here.")
