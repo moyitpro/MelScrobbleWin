@@ -267,7 +267,7 @@ Partial Class Form1
         '
         'Scrobble
         '
-        Me.Scrobble.Interval = 300000
+        Me.Scrobble.Interval = 180000
         '
         'SendtoTwitter
         '

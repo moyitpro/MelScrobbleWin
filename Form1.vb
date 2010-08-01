@@ -8,6 +8,7 @@ Imports System.IO
 Imports System.Web
 Imports DJMatty.AMIP.ClientWrapper
 Imports System.Text.RegularExpressions
+Imports Growl.Connector
 
 Public Class Form1
     Private _client As AMIPClient = Nothing
@@ -16,6 +17,9 @@ Public Class Form1
     Public scrobblemediatitle As String
     Public scrobblemediasegment As String
     Public scrobblesuccess As Boolean
+    Dim WithEvents growl As GrowlConnector
+    Dim nt As NotificationType = New NotificationType("Message", "Message")
+    Dim app As Growl.Connector.Application
 
     Private Sub PostBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PostBut.Click
         If Message.TextLength = 0 And MediaTitle.TextLength = 0 Then
@@ -147,16 +151,17 @@ Public Class Form1
             request.Headers.Add("Cookie", My.Settings.APIToken)
             ' Set up the form
             data = New StringBuilder()
-            If mediatype.Text = "Anime" Then
-                data.Append("anime=" + HttpUtility.UrlEncode(MediaTitle.Text))
-                data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
-                data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
-            ElseIf mediatype.Text = "Music" Then
-                data.Append("music=" + HttpUtility.UrlEncode(MediaTitle.Text))
-                data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
-                data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
-            End If
 
+            Select Case mediatype.SelectedIndex
+                Case 0
+                    data.Append("anime=" + HttpUtility.UrlEncode(MediaTitle.Text))
+                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
+                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
+                Case 1
+                    data.Append("music=" + HttpUtility.UrlEncode(MediaTitle.Text))
+                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
+                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
+            End Select
             ' Create a byte array of the data we want to send  
             byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
 
@@ -212,6 +217,7 @@ Public Class Form1
         SetFonts()
         'Set the tooltips
         SetToolTips()
+
     End Sub
 
     Private Sub SetFonts()
@@ -248,7 +254,7 @@ Public Class Form1
 
     Private Sub ExitMelScrobbleToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitMelScrobbleToolStripMenuItem.Click
         ExitMelScrobbleToolStripMenuItem.Checked = True
-        Application.Exit()
+        End
     End Sub
 
     Private Sub NotifyIcon1_MouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
@@ -259,51 +265,53 @@ Public Class Form1
         DetectMedia()
     End Sub
     Public Sub DetectMedia()
-        If mediatype.SelectedIndex = 1 Then
-            'Create a new instance of AMIP
-            _client = New AMIPClient("127.0.0.1", 60333, 5000, 5, 1, True)
-            Try
-                'Set Music Info
-                MediaTitle.Text = _client.Format("%4")
-                Segment.Text = _client.Format("%2")
-                ArtistName.Text = _client.Format("%1")
-                'Set player as the source (used for Microblogging)
-                musicclient = _client.Eval("var_player")
-                Status.Text = "Detected current " + musicclient + " track."
-            Catch ex As Exception
-                Status.Text = "Error: No track is playing."
-            End Try
-            'Remove the AMIP client, not needed
-            _client.Dispose()
-        Else
-            'Retrieve Recently Played file from registry
-            Try
-                Dim file As String
-                file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
-                If file.Length > 0 Then
-                    'Regex Time
-                    file = Regex.Replace(file, "^.+\\", "")
-                    file = Regex.Replace(file, "\.\w+$", "")
-                    file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
-                    file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
-                    file = Regex.Replace(file, "_", " ")
-                    'Output to fields
-                    MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
-                    Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "")
-                    'Trim Whitespace
-                    MediaTitle.Text = Trim(MediaTitle.Text)
-                    Status.Text = "Detected currently playing video."
+        Select Case mediatype.SelectedIndex
+            Case 0
+                'Retrieve Recently Played file from registry
+                Try
+                    Dim file As String
+                    file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
+                    If file.Length > 0 Then
+                        'Regex Time
+                        file = Regex.Replace(file, "^.+\\", "")
+                        file = Regex.Replace(file, "\.\w+$", "")
+                        file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
+                        file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
+                        file = Regex.Replace(file, "_", " ")
+                        'Output to fields
+                        MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
+                        Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "")
+                        'Trim Whitespace
+                        MediaTitle.Text = Trim(MediaTitle.Text)
+                        Status.Text = "Detected currently playing video."
 
-                Else
-                    'Show error
+                    Else
+                        'Show error
+                        MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
+                        Status.Text = "Detection failed."
+                    End If
+                Catch
                     MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
                     Status.Text = "Detection failed."
-                End If
-            Catch
-                MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
-                Status.Text = "Detection failed."
-            End Try
-        End If
+                End Try
+            Case 1
+                'Create a new instance of AMIP
+                _client = New AMIPClient("127.0.0.1", 60333, 5000, 5, 1, True)
+                Try
+                    'Set Music Info
+                    MediaTitle.Text = _client.Format("%4")
+                    Segment.Text = _client.Format("%2")
+                    ArtistName.Text = _client.Format("%1")
+                    'Set player as the source (used for Microblogging)
+                    musicclient = _client.Eval("var_player")
+                    Status.Text = "Detected current " + musicclient + " track."
+                Catch ex As Exception
+                    Status.Text = "Error: No track is playing."
+                End Try
+                'Remove the AMIP client, not needed
+                _client.Dispose()
+
+        End Select
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
@@ -311,6 +319,11 @@ Public Class Form1
         mediatype.SelectedIndex = My.Settings.Mediatype
         'Set Fonts
         SetFonts()
+        'Set up Growl Notifications
+        Me.app = New Growl.Connector.Application("MelScrobbleX")
+        Me.growl = New GrowlConnector()
+        Dim types() As NotificationType = New NotificationType() {Me.nt}
+        Me.growl.Register(Me.app, types)
         If My.Settings.ScrobbleAtStartup = False Then
             Me.Hide()
             Timer1.Enabled = False
@@ -326,8 +339,10 @@ Public Class Form1
     Private Sub EnableScrobblingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EnableScrobblingToolStripMenuItem.Click
         If EnableScrobblingToolStripMenuItem.Checked = False Then
             scrobbleenabled = True
+            SendGrowlMessage("MelScrobble", "Auto Scrobble is now turned on")
         Else
             scrobbleenabled = False
+            SendGrowlMessage("MelScrobble", "Auto Scrobble is now turned off")
         End If
         EnableScrobblingToolStripMenuItem.Checked = scrobbleenabled
         Scrobble.Enabled = scrobbleenabled
@@ -365,15 +380,17 @@ Public Class Form1
             request.Headers.Add("Cookie", My.Settings.APIToken)
             ' Set up the form
             data = New StringBuilder()
-            If mediatype.Text = "Anime" Then
-                data.Append("anime=" + HttpUtility.UrlEncode(scrobblemediatitle))
-                data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
-                data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
-            ElseIf mediatype.Text = "Music" Then
-                data.Append("music=" + HttpUtility.UrlEncode(scrobblemediatitle))
-                data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
-                data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
-            End If
+
+            Select Case mediatype.SelectedIndex
+                Case 0
+                    data.Append("anime=" + HttpUtility.UrlEncode(scrobblemediatitle))
+                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
+                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
+                Case 1
+                    data.Append("music=" + HttpUtility.UrlEncode(scrobblemediatitle))
+                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
+                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
+            End Select
 
             ' Create a byte array of the data we want to send  
             byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
@@ -399,11 +416,11 @@ Public Class Form1
                 Message.Text = ""
                 CompleteCheckbox.Checked = False
                 Status.Text = "Scrobble Successful."
-                NotifyIcon1.ShowBalloonTip(30000, "Scrobble Successful!", scrobblemediatitle & " - " & scrobblemediasegment, ToolTipIcon.Info)
+                SendGrowlMessage("Scrobble Successful!", scrobblemediatitle & " - " & scrobblemediasegment)
                 scrobblesuccess = True
             Catch webexception As WebException
                 Status.Text = "Scrobble Failed."
-                NotifyIcon1.ShowBalloonTip(30000, "Scrobble Unsuccessful!", "Will try to scrobble " & scrobblemediatitle & " - " & scrobblemediasegment & " again in 5 minutes.", ToolTipIcon.Error)
+                SendGrowlMessage("Scrobble Unsuccessful!", "Check your login token or internet connection and try again.")
                 scrobblesuccess = False
             Finally
                 If Not response Is Nothing Then
@@ -411,6 +428,10 @@ Public Class Form1
                 End If
             End Try
         End If
+    End Sub
+    Public Sub SendGrowlMessage(ByVal Title As String, ByVal Message As String)
+        Dim n As New Notification(Me.app.Name, Me.nt.Name, DateTime.Now.Ticks.ToString(), Title, Message)
+        growl.Notify(n)
     End Sub
     Public Sub SetToolTips()
         ToolTips.SetToolTip(Message, "Enter your message here.")
