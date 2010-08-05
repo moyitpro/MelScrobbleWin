@@ -22,36 +22,36 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.PostBut = New System.Windows.Forms.Button
-        Me.ScrobbleBut = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Message = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.MediaTitle = New System.Windows.Forms.TextBox
-        Me.mediatype = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Segment = New System.Windows.Forms.TextBox
-        Me.DetectBut = New System.Windows.Forms.Button
-        Me.CompleteCheckbox = New System.Windows.Forms.CheckBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.ArtistName = New System.Windows.Forms.TextBox
+        Me.PostBut = New System.Windows.Forms.Button()
+        Me.ScrobbleBut = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Message = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.MediaTitle = New System.Windows.Forms.TextBox()
+        Me.mediatype = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Segment = New System.Windows.Forms.TextBox()
+        Me.DetectBut = New System.Windows.Forms.Button()
+        Me.CompleteCheckbox = New System.Windows.Forms.CheckBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.ArtistName = New System.Windows.Forms.TextBox()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.AboutMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator
-        Me.ShowHideScrobbleWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator
-        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
-        Me.EnableScrobblingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator
-        Me.ExitMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.AboutMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ShowHideScrobbleWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.EnableScrobblingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ExitMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Status = New System.Windows.Forms.Label
+        Me.Status = New System.Windows.Forms.Label()
         Me.Scrobble = New System.Windows.Forms.Timer(Me.components)
-        Me.SendtoTwitter = New System.Windows.Forms.CheckBox
+        Me.SendtoTwitter = New System.Windows.Forms.CheckBox()
         Me.ToolTips = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -199,56 +199,57 @@ Partial Class Form1
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem4, Me.EnableScrobblingToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(230, 138)
+        Me.ContextMenuStrip1.ShowImageMargin = False
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(233, 180)
         '
         'AboutMelScrobbleToolStripMenuItem
         '
         Me.AboutMelScrobbleToolStripMenuItem.Name = "AboutMelScrobbleToolStripMenuItem"
-        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
         Me.AboutMelScrobbleToolStripMenuItem.Text = "About MelScrobble"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(226, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(229, 6)
         '
         'ShowHideScrobbleWindowToolStripMenuItem
         '
         Me.ShowHideScrobbleWindowToolStripMenuItem.Name = "ShowHideScrobbleWindowToolStripMenuItem"
-        Me.ShowHideScrobbleWindowToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.ShowHideScrobbleWindowToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
         Me.ShowHideScrobbleWindowToolStripMenuItem.Text = "Show/Hide Scrobble Window"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(226, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(229, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
         Me.SettingsToolStripMenuItem.Text = "Settings..."
         '
         'ToolStripMenuItem4
         '
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(226, 6)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(229, 6)
         '
         'EnableScrobblingToolStripMenuItem
         '
         Me.EnableScrobblingToolStripMenuItem.Name = "EnableScrobblingToolStripMenuItem"
-        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
         Me.EnableScrobblingToolStripMenuItem.Text = "Enable Scrobbling"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(226, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(229, 6)
         '
         'ExitMelScrobbleToolStripMenuItem
         '
         Me.ExitMelScrobbleToolStripMenuItem.Name = "ExitMelScrobbleToolStripMenuItem"
-        Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
         Me.ExitMelScrobbleToolStripMenuItem.Text = "E&xit MelScrobble"
         '
         'Timer1

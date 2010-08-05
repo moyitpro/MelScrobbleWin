@@ -17,18 +17,6 @@ Public Class Dialog1
         Me.Close()
     End Sub
 
-    Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowAtStartup.CheckedChanged
-
-    End Sub
-
-    Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
-
-    End Sub
-
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         If Username.TextLength = 0 Then
             MsgBox("No Username was entered. Please type a valid username and password and try again", MsgBoxStyle.Exclamation)
@@ -125,10 +113,12 @@ Public Class Dialog1
         Label4.Font = sys
         Label5.Font = sys
         Label6.Font = sys
+        Label7.Font = sys
         Cancel_Button.Font = sys
         OK_Button.Font = sys
         ShowAtStartup.Font = sys
         ShowResponse.Font = sys
+        BalloonFallback.Font = sys
         Username.Font = sys
         Password.Font = sys
         Button1.Font = sys

@@ -22,26 +22,28 @@ Partial Class Dialog1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
-        Me.OK_Button = New System.Windows.Forms.Button
-        Me.Cancel_Button = New System.Windows.Forms.Button
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Username = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Password = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.ShowResponse = New System.Windows.Forms.CheckBox
-        Me.ShowAtStartup = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.OK_Button = New System.Windows.Forms.Button()
+        Me.Cancel_Button = New System.Windows.Forms.Button()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.ShowResponse = New System.Windows.Forms.CheckBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.ShowAtStartup = New System.Windows.Forms.CheckBox()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Username = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Password = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.BalloonFallback = New System.Windows.Forms.CheckBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -99,6 +101,8 @@ Partial Class Dialog1
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.Label7)
+        Me.TabPage1.Controls.Add(Me.BalloonFallback)
         Me.TabPage1.Controls.Add(Me.ShowResponse)
         Me.TabPage1.Controls.Add(Me.Label6)
         Me.TabPage1.Controls.Add(Me.ShowAtStartup)
@@ -111,6 +115,18 @@ Partial Class Dialog1
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'ShowResponse
+        '
+        Me.ShowResponse.AutoSize = True
+        Me.ShowResponse.Checked = Global.WindowsApplication1.My.MySettings.Default.RequestOutPut
+        Me.ShowResponse.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "RequestOutPut", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ShowResponse.Location = New System.Drawing.Point(35, 66)
+        Me.ShowResponse.Name = "ShowResponse"
+        Me.ShowResponse.Size = New System.Drawing.Size(125, 17)
+        Me.ShowResponse.TabIndex = 3
+        Me.ShowResponse.Text = "Show Response Info"
+        Me.ShowResponse.UseVisualStyleBackColor = True
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -119,6 +135,20 @@ Partial Class Dialog1
         Me.Label6.Size = New System.Drawing.Size(44, 13)
         Me.Label6.TabIndex = 2
         Me.Label6.Text = "General"
+        '
+        'ShowAtStartup
+        '
+        Me.ShowAtStartup.AutoSize = True
+        Me.ShowAtStartup.Checked = Global.WindowsApplication1.My.MySettings.Default.ScrobbleAtStartup
+        Me.ShowAtStartup.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShowAtStartup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "ScrobbleAtStartup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ShowAtStartup.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ShowAtStartup.Location = New System.Drawing.Point(35, 43)
+        Me.ShowAtStartup.Name = "ShowAtStartup"
+        Me.ShowAtStartup.Size = New System.Drawing.Size(189, 17)
+        Me.ShowAtStartup.TabIndex = 1
+        Me.ShowAtStartup.Text = "Show Scrobble Window at Startup"
+        Me.ShowAtStartup.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -244,31 +274,26 @@ Partial Class Dialog1
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login"
         '
-        'ShowResponse
+        'BalloonFallback
         '
-        Me.ShowResponse.AutoSize = True
-        Me.ShowResponse.Checked = Global.WindowsApplication1.My.MySettings.Default.RequestOutPut
-        Me.ShowResponse.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "RequestOutPut", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ShowResponse.Location = New System.Drawing.Point(35, 66)
-        Me.ShowResponse.Name = "ShowResponse"
-        Me.ShowResponse.Size = New System.Drawing.Size(125, 17)
-        Me.ShowResponse.TabIndex = 3
-        Me.ShowResponse.Text = "Show Response Info"
-        Me.ShowResponse.UseVisualStyleBackColor = True
+        Me.BalloonFallback.AutoSize = True
+        Me.BalloonFallback.Checked = Global.WindowsApplication1.My.MySettings.Default.BalloonFallback
+        Me.BalloonFallback.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "BalloonFallback", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.BalloonFallback.Location = New System.Drawing.Point(35, 90)
+        Me.BalloonFallback.Name = "BalloonFallback"
+        Me.BalloonFallback.Size = New System.Drawing.Size(101, 17)
+        Me.BalloonFallback.TabIndex = 4
+        Me.BalloonFallback.Text = "Balloon Fallback"
+        Me.BalloonFallback.UseVisualStyleBackColor = True
         '
-        'ShowAtStartup
+        'Label7
         '
-        Me.ShowAtStartup.AutoSize = True
-        Me.ShowAtStartup.Checked = Global.WindowsApplication1.My.MySettings.Default.ScrobbleAtStartup
-        Me.ShowAtStartup.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShowAtStartup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "ScrobbleAtStartup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ShowAtStartup.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ShowAtStartup.Location = New System.Drawing.Point(35, 43)
-        Me.ShowAtStartup.Name = "ShowAtStartup"
-        Me.ShowAtStartup.Size = New System.Drawing.Size(189, 17)
-        Me.ShowAtStartup.TabIndex = 1
-        Me.ShowAtStartup.Text = "Show Scrobble Window at Startup"
-        Me.ShowAtStartup.UseVisualStyleBackColor = True
+        Me.Label7.Location = New System.Drawing.Point(55, 113)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(317, 54)
+        Me.Label7.TabIndex = 5
+        Me.Label7.Text = "If Growl is not installed on your computer and you want notifications, you can ha" & _
+            "ve MelScrobble show Notification Balloons to notify of Scrobbler Activity."
         '
         'Dialog1
         '
@@ -317,5 +342,7 @@ Partial Class Dialog1
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents ShowResponse As System.Windows.Forms.CheckBox
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents BalloonFallback As System.Windows.Forms.CheckBox
 
 End Class

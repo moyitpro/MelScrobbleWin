@@ -1,4 +1,6 @@
-﻿Imports System.Data
+﻿Imports System
+Imports System.Management
+Imports System.Data
 Imports System.Drawing
 Imports System.Text
 Imports System.Windows.Forms
@@ -267,33 +269,48 @@ Public Class Form1
     Public Sub DetectMedia()
         Select Case mediatype.SelectedIndex
             Case 0
-                'Retrieve Recently Played file from registry
-                Try
-                    Dim file As String
-                    file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
-                    If file.Length > 0 Then
-                        'Regex Time
-                        file = Regex.Replace(file, "^.+\\", "")
-                        file = Regex.Replace(file, "\.\w+$", "")
-                        file = Regex.Replace(file, "\s*\[[^\]]+\]\s*", "")
-                        file = Regex.Replace(file, "\s*\([^\)]+\)$", "")
-                        file = Regex.Replace(file, "_", " ")
-                        'Output to fields
-                        MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
-                        Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "")
-                        'Trim Whitespace
-                        MediaTitle.Text = Trim(MediaTitle.Text)
-                        Status.Text = "Detected currently playing video."
+                ' Get WMIC Output
+                Dim wmicoutput As String = ""
+                Dim file As String
+                Dim searcher As New ManagementObjectSearcher( _
+                "SELECT * FROM Win32_Process WHERE Name='mpc-hc.exe'")
 
-                    Else
-                        'Show error
+                For Each process As ManagementObject In searcher.Get()
+                    wmicoutput = process("CommandLine") + wmicoutput
+                Next
+
+                If wmicoutput.Length = 0 Then
+                    Try
+                        file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
+                    Catch
                         MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
                         Status.Text = "Detection failed."
-                    End If
-                Catch
-                    MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
+                    End Try
+                Else
+                    file = WMICRegex(wmicoutput)
+                End If
+
+                ' Show Output
+                If file.Length > 0 Then
+                    'Regex Time
+                    file = Regex.Replace(file, "^.+\\", "")
+                    file = Regex.Replace(file, "\.\w+$", "")
+                    file = Regex.Replace(file, "[\s_]*\[[^\]]+\]\s*", "")
+                    file = Regex.Replace(file, "[\s_]*\([^\)]+\)$", "")
+                    file = Regex.Replace(file, "_", " ")
+                    'Output to fields
+                    MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
+                    Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "")
+                    'Trim Whitespace
+                    MediaTitle.Text = Trim(MediaTitle.Text)
+                    Status.Text = "Detected currently playing video."
+
+                Else
+                    'Show error
+                    MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Open the video file directly or make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
                     Status.Text = "Detection failed."
-                End Try
+                End If
+
             Case 1
                 'Create a new instance of AMIP
                 _client = New AMIPClient("127.0.0.1", 60333, 5000, 5, 1, True)
@@ -321,6 +338,7 @@ Public Class Form1
         SetFonts()
         'Set up Growl Notifications
         Me.app = New Growl.Connector.Application("MelScrobbleX")
+        Me.app.Icon = My.Resources.MelScrobbleIcon
         Me.growl = New GrowlConnector()
         Dim types() As NotificationType = New NotificationType() {Me.nt}
         Me.growl.Register(Me.app, types)
@@ -435,7 +453,9 @@ Public Class Form1
             Dim n As New Notification(Me.app.Name, Me.nt.Name, DateTime.Now.Ticks.ToString(), Title, Message)
             growl.Notify(n)
         Else
-            NotifyIcon1.ShowBalloonTip(30000, Title, Message, ToolTipIcon.Info)
+            If My.Settings.BalloonFallback = True Then
+                NotifyIcon1.ShowBalloonTip(30000, Title, Message, ToolTipIcon.Info)
+            End If
         End If
     End Sub
     Public Sub SetToolTips()
@@ -450,4 +470,17 @@ Public Class Form1
         ToolTips.SetToolTip(PostBut, "Posts the update.")
     End Sub
 
+    Private Function WMICRegex(ByVal Input As String) As String
+        Dim pattern As String = "\\([^\\]+)$"
+        Dim rgx As New Regex(pattern, RegexOptions.IgnoreCase)
+        Dim matches As MatchCollection = rgx.Matches(Input)
+        If matches.Count > 0 Then
+            Input = "C:" & matches(0).Value
+            Input = Trim(Regex.Replace(Input, Chr(34), ""))
+            Input = Regex.Replace(Input, "\n", "")
+            Return Input
+        Else
+            Return ""
+        End If
+    End Function
 End Class
