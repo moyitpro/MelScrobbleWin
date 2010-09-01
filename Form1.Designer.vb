@@ -53,7 +53,10 @@ Partial Class Form1
         Me.Scrobble = New System.Windows.Forms.Timer(Me.components)
         Me.SendtoTwitter = New System.Windows.Forms.CheckBox()
         Me.ToolTips = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.UploadImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
+        Me.ContextMenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'PostBut
@@ -89,6 +92,7 @@ Partial Class Form1
         '
         'Message
         '
+        Me.Message.ContextMenuStrip = Me.ContextMenuStrip2
         Me.Message.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Message.Location = New System.Drawing.Point(74, 12)
         Me.Message.Multiline = True
@@ -121,7 +125,7 @@ Partial Class Form1
         Me.mediatype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.mediatype.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.mediatype.FormattingEnabled = True
-        Me.mediatype.Items.AddRange(New Object() {"Anime", "Music"})
+        Me.mediatype.Items.AddRange(New Object() {"Anime", "Music", "Adrama"})
         Me.mediatype.Location = New System.Drawing.Point(225, 63)
         Me.mediatype.Name = "mediatype"
         Me.mediatype.Size = New System.Drawing.Size(83, 21)
@@ -199,57 +203,58 @@ Partial Class Form1
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem4, Me.EnableScrobblingToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.ContextMenuStrip1.ShowCheckMargin = True
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(233, 180)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(258, 180)
         '
         'AboutMelScrobbleToolStripMenuItem
         '
         Me.AboutMelScrobbleToolStripMenuItem.Name = "AboutMelScrobbleToolStripMenuItem"
-        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
+        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
         Me.AboutMelScrobbleToolStripMenuItem.Text = "About MelScrobble"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(229, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(254, 6)
         '
         'ShowHideScrobbleWindowToolStripMenuItem
         '
         Me.ShowHideScrobbleWindowToolStripMenuItem.Name = "ShowHideScrobbleWindowToolStripMenuItem"
-        Me.ShowHideScrobbleWindowToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
+        Me.ShowHideScrobbleWindowToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
         Me.ShowHideScrobbleWindowToolStripMenuItem.Text = "Show/Hide Scrobble Window"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(229, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(254, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
         Me.SettingsToolStripMenuItem.Text = "Settings..."
         '
         'ToolStripMenuItem4
         '
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(229, 6)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(254, 6)
         '
         'EnableScrobblingToolStripMenuItem
         '
         Me.EnableScrobblingToolStripMenuItem.Name = "EnableScrobblingToolStripMenuItem"
-        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
+        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
         Me.EnableScrobblingToolStripMenuItem.Text = "Enable Scrobbling"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(229, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(254, 6)
         '
         'ExitMelScrobbleToolStripMenuItem
         '
         Me.ExitMelScrobbleToolStripMenuItem.Name = "ExitMelScrobbleToolStripMenuItem"
-        Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(232, 26)
+        Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
         Me.ExitMelScrobbleToolStripMenuItem.Text = "E&xit MelScrobble"
         '
         'Timer1
@@ -282,7 +287,21 @@ Partial Class Form1
         '
         'ToolTips
         '
-        Me.ToolTips.IsBalloon = True
+        Me.ToolTips.AutoPopDelay = 5000
+        Me.ToolTips.InitialDelay = 700
+        Me.ToolTips.ReshowDelay = 100
+        '
+        'ContextMenuStrip2
+        '
+        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadImageToolStripMenuItem})
+        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(164, 30)
+        '
+        'UploadImageToolStripMenuItem
+        '
+        Me.UploadImageToolStripMenuItem.Name = "UploadImageToolStripMenuItem"
+        Me.UploadImageToolStripMenuItem.Size = New System.Drawing.Size(163, 26)
+        Me.UploadImageToolStripMenuItem.Text = "Upload Image"
         '
         'Form1
         '
@@ -312,6 +331,7 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.Text = "MelScrobble"
         Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.ContextMenuStrip2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -345,5 +365,7 @@ Partial Class Form1
     Friend WithEvents EnableScrobblingToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SendtoTwitter As System.Windows.Forms.CheckBox
     Friend WithEvents ToolTips As System.Windows.Forms.ToolTip
+    Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents UploadImageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

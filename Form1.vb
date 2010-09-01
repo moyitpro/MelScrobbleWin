@@ -79,7 +79,18 @@ Public Class Form1
                     Else
                         data.Append("&source=" + HttpUtility.UrlEncode("MelScrobble"))
                     End If
-
+                ElseIf mediatype.Text = "Adrama" Then
+                    If CompleteCheckbox.Checked = True Then
+                        action = "watched"
+                    Else
+                        action = "watching"
+                    End If
+                    If Segment.TextLength > 0 Then
+                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /adrama/" + MediaTitle.Text + "/episode " + Segment.Text + ": " + Message.Text))
+                    Else
+                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /adrama/" + MediaTitle.Text + Message.Text))
+                    End If
+                    data.Append("&source=" + HttpUtility.UrlEncode("Media Player Classic"))
                 End If
             Else
                 data.Append("message=" + HttpUtility.UrlEncode(Message.Text))
@@ -162,6 +173,10 @@ Public Class Form1
                 Case 1
                     data.Append("music=" + HttpUtility.UrlEncode(MediaTitle.Text))
                     data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
+                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
+                Case 2
+                    data.Append("adrama=" + HttpUtility.UrlEncode(MediaTitle.Text))
+                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
                     data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
             End Select
             ' Create a byte array of the data we want to send  
@@ -268,7 +283,7 @@ Public Class Form1
     End Sub
     Public Sub DetectMedia()
         Select Case mediatype.SelectedIndex
-            Case 0
+            Case 0 Or 2
                 ' Get WMIC Output
                 Dim wmicoutput As String = ""
                 Dim file As String
@@ -408,6 +423,10 @@ Public Class Form1
                     data.Append("music=" + HttpUtility.UrlEncode(scrobblemediatitle))
                     data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
                     data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
+                Case 2
+                    data.Append("adrama=" + HttpUtility.UrlEncode(scrobblemediatitle))
+                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
+                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
             End Select
 
             ' Create a byte array of the data we want to send  
@@ -459,7 +478,7 @@ Public Class Form1
         End If
     End Sub
     Public Sub SetToolTips()
-        ToolTips.SetToolTip(Message, "Enter your message here.")
+        ToolTips.SetToolTip(Message, "Specify a message here. No message is required if Media Title and Segment fields are filled. Not used for Scrobble.")
         ToolTips.SetToolTip(mediatype, "Selects the Media Type to use in your update or scrobble with.")
         ToolTips.SetToolTip(MediaTitle, "The title of the media.")
         ToolTips.SetToolTip(Segment, "The segment of the media (e.g.: Episode or Track).")
@@ -483,4 +502,22 @@ Public Class Form1
             Return ""
         End If
     End Function
+
+    Private Sub OpenFileDialog1_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs)
+
+    End Sub
+
+    Private Sub UploadImageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UploadImageToolStripMenuItem.Click
+        Dim myStream As Stream = Nothing
+        Dim openFileDialog1 As New OpenFileDialog()
+
+        openFileDialog1.Filter = "Image Files (*.jpg, *.png, *.gif)|*.jpg, *.png, *.jpg|All files (*.*)|*.*"
+        openFileDialog1.FilterIndex = 2
+        openFileDialog1.RestoreDirectory = True
+
+        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+           
+        End If
+
+    End Sub
 End Class
