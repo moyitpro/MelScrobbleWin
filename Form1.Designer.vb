@@ -28,6 +28,8 @@ Partial Class Form1
         Me.ScrobbleBut = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Message = New System.Windows.Forms.TextBox()
+        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.UploadImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.MediaTitle = New System.Windows.Forms.TextBox()
         Me.mediatype = New System.Windows.Forms.ComboBox()
@@ -53,10 +55,9 @@ Partial Class Form1
         Me.Scrobble = New System.Windows.Forms.Timer(Me.components)
         Me.SendtoTwitter = New System.Windows.Forms.CheckBox()
         Me.ToolTips = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.UploadImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContextMenuStrip1.SuspendLayout()
+        Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip2.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PostBut
@@ -100,6 +101,18 @@ Partial Class Form1
         Me.Message.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
         Me.Message.Size = New System.Drawing.Size(304, 44)
         Me.Message.TabIndex = 3
+        '
+        'ContextMenuStrip2
+        '
+        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadImageToolStripMenuItem})
+        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(164, 30)
+        '
+        'UploadImageToolStripMenuItem
+        '
+        Me.UploadImageToolStripMenuItem.Name = "UploadImageToolStripMenuItem"
+        Me.UploadImageToolStripMenuItem.Size = New System.Drawing.Size(163, 26)
+        Me.UploadImageToolStripMenuItem.Text = "Upload Image"
         '
         'Label2
         '
@@ -200,12 +213,12 @@ Partial Class Form1
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.BackColor = System.Drawing.SystemColors.Menu
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem4, Me.EnableScrobblingToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutMelScrobbleToolStripMenuItem, Me.CheckForUpdatesToolStripMenuItem, Me.ToolStripMenuItem3, Me.ShowHideScrobbleWindowToolStripMenuItem, Me.ToolStripMenuItem1, Me.SettingsToolStripMenuItem, Me.ToolStripMenuItem4, Me.EnableScrobblingToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitMelScrobbleToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.ContextMenuStrip1.ShowCheckMargin = True
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(258, 180)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(258, 206)
         '
         'AboutMelScrobbleToolStripMenuItem
         '
@@ -291,17 +304,11 @@ Partial Class Form1
         Me.ToolTips.InitialDelay = 700
         Me.ToolTips.ReshowDelay = 100
         '
-        'ContextMenuStrip2
+        'CheckForUpdatesToolStripMenuItem
         '
-        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadImageToolStripMenuItem})
-        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(164, 30)
-        '
-        'UploadImageToolStripMenuItem
-        '
-        Me.UploadImageToolStripMenuItem.Name = "UploadImageToolStripMenuItem"
-        Me.UploadImageToolStripMenuItem.Size = New System.Drawing.Size(163, 26)
-        Me.UploadImageToolStripMenuItem.Text = "Upload Image"
+        Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
+        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
+        Me.CheckForUpdatesToolStripMenuItem.Text = "Check for Updates..."
         '
         'Form1
         '
@@ -330,8 +337,8 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.Text = "MelScrobble"
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ContextMenuStrip2.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -367,5 +374,6 @@ Partial Class Form1
     Friend WithEvents ToolTips As System.Windows.Forms.ToolTip
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents UploadImageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CheckForUpdatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

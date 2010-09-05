@@ -27,6 +27,8 @@ Partial Class Dialog1
         Me.Cancel_Button = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.BalloonFallback = New System.Windows.Forms.CheckBox()
         Me.ShowResponse = New System.Windows.Forms.CheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.ShowAtStartup = New System.Windows.Forms.CheckBox()
@@ -42,8 +44,6 @@ Partial Class Dialog1
         Me.Password = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.BalloonFallback = New System.Windows.Forms.CheckBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -114,6 +114,26 @@ Partial Class Dialog1
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.Location = New System.Drawing.Point(55, 113)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(317, 54)
+        Me.Label7.TabIndex = 5
+        Me.Label7.Text = "If Growl is not installed on your computer and you want notifications, you can ha" & _
+            "ve MelScrobble show Notification Balloons to notify of Scrobbler Activity."
+        '
+        'BalloonFallback
+        '
+        Me.BalloonFallback.AutoSize = True
+        Me.BalloonFallback.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "BalloonFallback", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.BalloonFallback.Location = New System.Drawing.Point(35, 90)
+        Me.BalloonFallback.Name = "BalloonFallback"
+        Me.BalloonFallback.Size = New System.Drawing.Size(101, 17)
+        Me.BalloonFallback.TabIndex = 4
+        Me.BalloonFallback.Text = "Balloon Fallback"
+        Me.BalloonFallback.UseVisualStyleBackColor = True
         '
         'ShowResponse
         '
@@ -273,27 +293,6 @@ Partial Class Dialog1
         Me.Label1.Size = New System.Drawing.Size(32, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login"
-        '
-        'BalloonFallback
-        '
-        Me.BalloonFallback.AutoSize = True
-        Me.BalloonFallback.Checked = Global.WindowsApplication1.My.MySettings.Default.BalloonFallback
-        Me.BalloonFallback.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "BalloonFallback", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.BalloonFallback.Location = New System.Drawing.Point(35, 90)
-        Me.BalloonFallback.Name = "BalloonFallback"
-        Me.BalloonFallback.Size = New System.Drawing.Size(101, 17)
-        Me.BalloonFallback.TabIndex = 4
-        Me.BalloonFallback.Text = "Balloon Fallback"
-        Me.BalloonFallback.UseVisualStyleBackColor = True
-        '
-        'Label7
-        '
-        Me.Label7.Location = New System.Drawing.Point(55, 113)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(317, 54)
-        Me.Label7.TabIndex = 5
-        Me.Label7.Text = "If Growl is not installed on your computer and you want notifications, you can ha" & _
-            "ve MelScrobble show Notification Balloons to notify of Scrobbler Activity."
         '
         'Dialog1
         '

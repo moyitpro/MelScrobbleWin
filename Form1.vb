@@ -366,7 +366,7 @@ Public Class Form1
     End Sub
 
     Private Sub AboutMelScrobbleToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutMelScrobbleToolStripMenuItem.Click
-        MsgBox("MelScrobble " + My.Application.Info.Version.ToString + vbCrLf + vbCrLf + "Melative Scrobbler for Windows running on " + My.Computer.Info.OSFullName.ToString + vbCrLf + vbCrLf + "Copyright 2009-2010 James M. All Rights Reserved" + vbCrLf + "Licensed under GNU Public License v3", MsgBoxStyle.Information, "About")
+        About.Show()
     End Sub
 
     Private Sub EnableScrobblingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EnableScrobblingToolStripMenuItem.Click
@@ -511,13 +511,24 @@ Public Class Form1
         Dim myStream As Stream = Nothing
         Dim openFileDialog1 As New OpenFileDialog()
 
-        openFileDialog1.Filter = "Image Files (*.jpg, *.png, *.gif)|*.jpg, *.png, *.jpg|All files (*.*)|*.*"
-        openFileDialog1.FilterIndex = 2
+        openFileDialog1.Filter = "Image Files (*.jpg; *.png; *.gif)|*.jpg; *.png; *.gif|All files (*.*)|*.*"
+        openFileDialog1.FilterIndex = 1
         openFileDialog1.RestoreDirectory = True
 
         If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-           
+            Dim IUploader As New ImgurUploader
+            Dim ImageURL As String
+            ImageURL = IUploader.UploadToImgur(openFileDialog1.FileName)
+            If ImageURL.Length > 0 Then
+                Message.Text = "#image " + ImageURL + vbNewLine + Message.Text
+            Else
+                MsgBox("Upload Failed " + vbNewLine + vbNewLine + "Unable to upload the selected picture. Check your Internet Connection and try again.")
+            End If
         End If
+    End Sub
+
+    Private Sub CheckForUpdatesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
+        UpdateChecker.CheckForUpdates()
 
     End Sub
 End Class

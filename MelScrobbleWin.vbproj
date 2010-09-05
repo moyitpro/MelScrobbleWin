@@ -107,6 +107,15 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.Designer.vb">
+      <DependentUpon>About.vb</DependentUpon>
+    </Compile>
+    <Compile Include="About.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateChecker.vb" />
+    <Compile Include="ImgurUploader.vb" />
+    <Compile Include="ImageShackUploader.vb" />
     <Compile Include="Dialog1.Designer.vb">
       <DependentUpon>Dialog1.vb</DependentUpon>
     </Compile>
@@ -138,6 +147,9 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialog1.resx">
       <DependentUpon>Dialog1.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -168,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="melative.ico" />
+    <None Include="melscrobble.png" />
     <None Include="MelScrobbleX-4 %28dragged%29.tiff" />
   </ItemGroup>
   <ItemGroup>

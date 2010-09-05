@@ -60,6 +60,13 @@ Namespace My.Resources
             End Set
         End Property
         
+        Friend ReadOnly Property melscrobble() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("melscrobble", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property MelScrobbleIcon() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("MelScrobbleIcon", resourceCulture)
