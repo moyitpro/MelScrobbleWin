@@ -1,7 +1,7 @@
 ﻿Public Class About
 
 
-    Private Sub Label2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label2.Click
+    Private Sub About_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Label2.Text = "Version " + My.Application.Info.Version.ToString
     End Sub
 End Class
