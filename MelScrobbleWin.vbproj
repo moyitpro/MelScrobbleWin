@@ -113,7 +113,7 @@
     <Compile Include="About.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateChecker.vb" />
+    <Compile Include="Melative.vb" />
     <Compile Include="ImgurUploader.vb" />
     <Compile Include="ImageShackUploader.vb" />
     <Compile Include="Dialog1.Designer.vb">
@@ -145,6 +145,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.vb" />
+    <Compile Include="Winsparkle.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
@@ -179,7 +180,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ac.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="melative.ico" />
+    <Content Include="WinSparkle.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="melscrobble.png" />
     <None Include="MelScrobbleX-4 %28dragged%29.tiff" />
   </ItemGroup>

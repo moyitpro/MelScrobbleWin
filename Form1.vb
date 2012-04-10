@@ -8,213 +8,19 @@ Imports System.Runtime.InteropServices
 Imports System.Net
 Imports System.IO
 Imports System.Web
-Imports DJMatty.AMIP.ClientWrapper
-Imports System.Text.RegularExpressions
 Imports Growl.Connector
 
 Public Class Form1
-    Private _client As AMIPClient = Nothing
-    Public musicclient As String
-    Public scrobbleenabled As Boolean
-    Public scrobblemediatitle As String
-    Public scrobblemediasegment As String
-    Public scrobblesuccess As Boolean
     Dim WithEvents growl As GrowlConnector
     Dim nt As NotificationType = New NotificationType("Message", "Message")
     Dim app As Growl.Connector.Application
+    Dim melclient As New Melative
+    Private scrobbleenabled As Boolean
 
-    Private Sub PostBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PostBut.Click
-        If Message.TextLength = 0 And MediaTitle.TextLength = 0 Then
-            MsgBox("You must enter a message or a media title to post a update.", MsgBoxStyle.Exclamation)
-            Status.Text = "No Message Entered."
-        Else
-            Status.Text = "Posting Update..."
-            Dim request As HttpWebRequest
-            Dim response As HttpWebResponse = Nothing
-            Dim reader As StreamReader
-            Dim address As Uri
-            Dim data As StringBuilder
-            Dim byteData() As Byte
-            Dim postStream As Stream = Nothing
-
-            address = New Uri("http://melative.com/api/micro/update.json")
-            If SendtoTwitter.Checked = True Then
-                Message.Text = Message.Text & " @tw"
-            End If
-            ' Create the web request  
-            request = DirectCast(WebRequest.Create(address), HttpWebRequest)
-            ' Set type to POST  
-            request.Method = "POST"
-            request.ContentType = "application/x-www-form-urlencoded"
-            request.Headers.Add("Cookie", My.Settings.APIToken)
-
-            data = New StringBuilder()
-            If MediaTitle.TextLength > 0 Then
-                Dim action As String
-                If mediatype.Text = "Anime" Then
-                    If CompleteCheckbox.Checked = True Then
-                        action = "watched"
-                    Else
-                        action = "watching"
-                    End If
-                    If Segment.TextLength > 0 Then
-                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /an/" + MediaTitle.Text + "/episode " + Segment.Text + ": " + Message.Text))
-                    Else
-                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /an/" + MediaTitle.Text + Message.Text))
-                    End If
-                    data.Append("&source=" + HttpUtility.UrlEncode("Media Player Classic"))
-                ElseIf mediatype.Text = "Music" Then
-                    If CompleteCheckbox.Checked = True Then
-                        action = "listened"
-                    Else
-                        action = "listening"
-                    End If
-                    If Segment.TextLength > 0 Then
-                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /music/" + MediaTitle.Text + "/" + Segment.Text + ": " + Message.Text))
-                    Else
-                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /music/" + MediaTitle.Text + Message.Text))
-                    End If
-                    If musicclient.Length > 0 Then
-                        data.Append("&source=" + HttpUtility.UrlEncode(musicclient))
-                    Else
-                        data.Append("&source=" + HttpUtility.UrlEncode("MelScrobble"))
-                    End If
-                ElseIf mediatype.Text = "Adrama" Then
-                    If CompleteCheckbox.Checked = True Then
-                        action = "watched"
-                    Else
-                        action = "watching"
-                    End If
-                    If Segment.TextLength > 0 Then
-                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /adrama/" + MediaTitle.Text + "/episode " + Segment.Text + ": " + Message.Text))
-                    Else
-                        data.Append("message=" + HttpUtility.UrlEncode("/" + action + " /adrama/" + MediaTitle.Text + Message.Text))
-                    End If
-                    data.Append("&source=" + HttpUtility.UrlEncode("Media Player Classic"))
-                End If
-            Else
-                data.Append("message=" + HttpUtility.UrlEncode(Message.Text))
-                data.Append("&source=" + HttpUtility.UrlEncode("MelScrobble"))
-            End If
-
-
-            ' Create a byte array of the data we want to send  
-            byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
-
-            ' Set the content length in the request headers  
-            request.ContentLength = byteData.Length
-
-            ' Write data  
-            Try
-                postStream = request.GetRequestStream()
-                postStream.Write(byteData, 0, byteData.Length)
-            Finally
-                If Not postStream Is Nothing Then postStream.Close()
-            End Try
-
-            Try
-                ' Get response  
-                response = DirectCast(request.GetResponse(), HttpWebResponse)
-
-                ' Get the response stream into a reader  
-                reader = New StreamReader(response.GetResponseStream())
-                If My.Settings.RequestOutPut = True Then
-                    MsgBox("Post Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
-                End If
-                'Clear Message
-                Message.Text = ""
-                CompleteCheckbox.Checked = False
-                Status.Text = "Post Successful."
-            Catch webexception As WebException
-                MsgBox("Unable to post update. Check your account info." + vbCrLf + webexception.Message, MsgBoxStyle.Exclamation)
-                Status.Text = "Post Failed."
-            Finally
-                If Not response Is Nothing Then
-                    response.Close()
-                End If
-            End Try
-        End If
-    End Sub
+    Private Property sucess As Object
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dialog1.ShowDialog()
-    End Sub
-
-    Public Sub ScrobbleBut_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ScrobbleBut.Click
-        If MediaTitle.TextLength = 0 Or Segment.TextLength = 0 Then
-            MsgBox("You must enter a media title and a segment to scrobble this title.", MsgBoxStyle.Exclamation)
-            Status.Text = "No Title/Segment Entered."
-        Else
-            Status.Text = "Scrobbling Title..."
-            Dim request As HttpWebRequest
-            Dim response As HttpWebResponse = Nothing
-            Dim reader As StreamReader
-            Dim address As Uri
-            Dim data As StringBuilder
-            Dim byteData() As Byte
-            Dim postStream As Stream = Nothing
-
-            address = New Uri("http://melative.com/api/library/scrobble.json")
-
-            ' Create the web request  
-            request = DirectCast(WebRequest.Create(address), HttpWebRequest)
-            ' Set type to POST  
-            request.Method = "POST"
-            request.ContentType = "application/x-www-form-urlencoded"
-            request.Headers.Add("Cookie", My.Settings.APIToken)
-            ' Set up the form
-            data = New StringBuilder()
-
-            Select Case mediatype.SelectedIndex
-                Case 0
-                    data.Append("anime=" + HttpUtility.UrlEncode(MediaTitle.Text))
-                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
-                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
-                Case 1
-                    data.Append("music=" + HttpUtility.UrlEncode(MediaTitle.Text))
-                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
-                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
-                Case 2
-                    data.Append("adrama=" + HttpUtility.UrlEncode(MediaTitle.Text))
-                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
-                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(Segment.Text))
-            End Select
-            ' Create a byte array of the data we want to send  
-            byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
-
-            ' Set the content length in the request headers  
-            request.ContentLength = byteData.Length
-
-            ' Write data  
-            Try
-                postStream = request.GetRequestStream()
-                postStream.Write(byteData, 0, byteData.Length)
-            Finally
-                If Not postStream Is Nothing Then postStream.Close()
-            End Try
-
-            Try
-                ' Get response  
-                response = DirectCast(request.GetResponse(), HttpWebResponse)
-
-                ' Get the response stream into a reader  
-                reader = New StreamReader(response.GetResponseStream())
-                If My.Settings.RequestOutPut = True Then
-                    MsgBox("Scrobble Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
-                End If
-                'Clear Message
-                Message.Text = ""
-                CompleteCheckbox.Checked = False
-                Status.Text = "Scrobble Successful."
-            Catch webexception As WebException
-                MsgBox("Unable to post update. Check your account info." + vbCrLf + webexception.Message, MsgBoxStyle.Exclamation)
-                Status.Text = "Scrobble Failed."
-            Finally
-                If Not response Is Nothing Then
-                    response.Close()
-                End If
-            End Try
-        End If
     End Sub
 
     Private Sub Form1_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -234,7 +40,9 @@ Public Class Form1
         SetFonts()
         'Set the tooltips
         SetToolTips()
-
+        'winsparkle
+        WinSparkle.win_sparkle_set_appcast_url("http://chikorita157.com/updates/melscrobblewin.xml")
+        WinSparkle.win_sparkle_init()
     End Sub
 
     Private Sub SetFonts()
@@ -242,16 +50,12 @@ Public Class Form1
         Label1.Font = sys
         Label2.Font = sys
         Label3.Font = sys
-        Label4.Font = sys
         Status.Font = sys
-        ScrobbleBut.Font = sys
-        PostBut.Font = sys
         Message.Font = sys
         MediaTitle.Font = sys
         mediatype.Font = sys
         mediatype.Font = sys
         Segment.Font = sys
-        ArtistName.Font = sys
         CompleteCheckbox.Font = sys
         DetectBut.Font = sys
         SendtoTwitter.Font = sys
@@ -278,73 +82,6 @@ Public Class Form1
         Me.Show()
     End Sub
 
-    Private Sub DetectBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DetectBut.Click
-        DetectMedia()
-    End Sub
-    Public Sub DetectMedia()
-        Select Case mediatype.SelectedIndex
-            Case 0 Or 2
-                ' Get WMIC Output
-                Dim wmicoutput As String = ""
-                Dim file As String
-                Dim searcher As New ManagementObjectSearcher( _
-                "SELECT * FROM Win32_Process WHERE Name='mpc-hc.exe'")
-
-                For Each process As ManagementObject In searcher.Get()
-                    wmicoutput = process("CommandLine") + wmicoutput
-                Next
-
-                If wmicoutput.Length = 0 Then
-                    Try
-                        file = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Gabest\Media Player Classic\Recent File List", "File1", "")
-                    Catch
-                        MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
-                        Status.Text = "Detection failed."
-                    End Try
-                Else
-                    file = WMICRegex(wmicoutput)
-                End If
-
-                ' Show Output
-                If file.Length > 0 Then
-                    'Regex Time
-                    file = Regex.Replace(file, "^.+\\", "")
-                    file = Regex.Replace(file, "\.\w+$", "")
-                    file = Regex.Replace(file, "[\s_]*\[[^\]]+\]\s*", "")
-                    file = Regex.Replace(file, "[\s_]*\([^\)]+\)$", "")
-                    file = Regex.Replace(file, "_", " ")
-                    'Output to fields
-                    MediaTitle.Text = Regex.Replace(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$", "")
-                    Segment.Text = Regex.Replace(Regex.Match(file, "( \-)? (episode |ep |ep|e)?(\d+)([\w\-! ]*)$").ToString, " - ", "")
-                    'Trim Whitespace
-                    MediaTitle.Text = Trim(MediaTitle.Text)
-                    Status.Text = "Detected currently playing video."
-
-                Else
-                    'Show error
-                    MsgBox("MelScrobble was unable to detect Media file in Media Player Classic." + vbCrLf + "Open the video file directly or make sure 'Keep History of recently opened files' was enabled and try again.", MsgBoxStyle.Exclamation)
-                    Status.Text = "Detection failed."
-                End If
-
-            Case 1
-                'Create a new instance of AMIP
-                _client = New AMIPClient("127.0.0.1", 60333, 5000, 5, 1, True)
-                Try
-                    'Set Music Info
-                    MediaTitle.Text = _client.Format("%4")
-                    Segment.Text = _client.Format("%2")
-                    ArtistName.Text = _client.Format("%1")
-                    'Set player as the source (used for Microblogging)
-                    musicclient = _client.Eval("var_player")
-                    Status.Text = "Detected current " + musicclient + " track."
-                Catch ex As Exception
-                    Status.Text = "Error: No track is playing."
-                End Try
-                'Remove the AMIP client, not needed
-                _client.Dispose()
-
-        End Select
-    End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         'Set Mediatype
@@ -382,90 +119,28 @@ Public Class Form1
     End Sub
 
     Private Sub Scrobble_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Scrobble.Tick
-        DetectMedia()
-
-        If MediaTitle.TextLength = 0 Or Segment.TextLength = 0 Then
-            'Nothing to scrobble, do nothing
-
-        ElseIf MediaTitle.Text = scrobblemediatitle And Segment.Text = scrobblemediasegment And scrobblesuccess = True Then
-            'Don't want to scrobble the same title and segment again, so do nothing
-        Else
-            ' Set media to scrobble temp strings
-            scrobblemediatitle = MediaTitle.Text
-            scrobblemediasegment = Segment.Text
-            ' Start the process
-            Status.Text = "Scrobbling Title..."
-            Dim request As HttpWebRequest
-            Dim response As HttpWebResponse = Nothing
-            Dim reader As StreamReader
-            Dim address As Uri
-            Dim data As StringBuilder
-            Dim byteData() As Byte
-            Dim postStream As Stream = Nothing
-
-            address = New Uri("http://melative.com/api/library/scrobble.json")
-
-            ' Create the web request  
-            request = DirectCast(WebRequest.Create(address), HttpWebRequest)
-            ' Set type to POST  
-            request.Method = "POST"
-            request.ContentType = "application/x-www-form-urlencoded"
-            request.Headers.Add("Cookie", My.Settings.APIToken)
-            ' Set up the form
-            data = New StringBuilder()
-
-            Select Case mediatype.SelectedIndex
-                Case 0
-                    data.Append("anime=" + HttpUtility.UrlEncode(scrobblemediatitle))
-                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
-                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
-                Case 1
-                    data.Append("music=" + HttpUtility.UrlEncode(scrobblemediatitle))
-                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("track"))
-                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
-                Case 2
-                    data.Append("adrama=" + HttpUtility.UrlEncode(scrobblemediatitle))
-                    data.Append("&attribute_type=" + HttpUtility.UrlEncode("episode"))
-                    data.Append("&attribute_name=" + HttpUtility.UrlEncode(scrobblemediasegment))
-            End Select
-
-            ' Create a byte array of the data we want to send  
-            byteData = UTF8Encoding.UTF8.GetBytes(data.ToString())
-
-            ' Set the content length in the request headers  
-            request.ContentLength = byteData.Length
-
-            ' Write data  
-            Try
-                postStream = request.GetRequestStream()
-                postStream.Write(byteData, 0, byteData.Length)
-            Finally
-                If Not postStream Is Nothing Then postStream.Close()
-            End Try
-
-            Try
-                ' Get response  
-                response = DirectCast(request.GetResponse(), HttpWebResponse)
-
-                ' Get the response stream into a reader  
-                reader = New StreamReader(response.GetResponseStream())
-                'Clear Message
-                Message.Text = ""
-                CompleteCheckbox.Checked = False
-                Status.Text = "Scrobble Successful."
-                SendGrowlMessage("Scrobble Successful!", scrobblemediatitle & " - " & scrobblemediasegment)
-                NotifyIcon1.Text = "MelScrobble - Last Scrobbled: " & scrobblemediatitle & " - " & scrobblemediasegment
-                scrobblesuccess = True
-            Catch webexception As WebException
-                Status.Text = "Scrobble Failed."
-                SendGrowlMessage("Scrobble Unsuccessful!", "Check your login token or internet connection and try again.")
-                scrobblesuccess = False
-            Finally
-                If Not response Is Nothing Then
-                    response.Close()
-                End If
-            End Try
-        End If
+        Dim success As Boolean
+        sucess = melclient.DetectMedia(MediaType.SelectedIndex)
+        If success = True Then
+            MediaTitle.Text = melclient.getMedia
+            Segment.Text = melclient.getSegment
+            If melclient.getScrobbleSuccess = True & MediaTitle.Text = melclient.getscrobbledmediatitle & Segment.Text = melclient.getscrobbledmediaSegment Then
+            Else
+                Dim httpcode As Integer
+                httpcode = melclient.Scrobble(MediaTitle.Text, Segment.Text, MediaType.SelectedIndex)
+                Select Case httpcode
+                    Case 200
+                        melclient.setScrobbleSucess(True)
+                        Status.Text = "Scrobble Successful."
+                        SendGrowlMessage("Scrobble Successful!", melclient.getscrobbledmediatitle & " - " & melclient.getscrobbledmediaSegment)
+                        NotifyIcon1.Text = "MelScrobble - Last Scrobbled: " & melclient.getscrobbledmediatitle & " - " & melclient.getscrobbledmediaSegment
+                    Case 500
+                        melclient.setScrobbleSucess(False)
+                        Status.Text = "Scrobble Failed."
+                        SendGrowlMessage("Scrobble Unsuccessful!", "Check your login token or internet connection and try again.")
+                End Select
+            End If
+        End If   
     End Sub
     Public Sub SendGrowlMessage(ByVal Title As String, ByVal Message As String)
         If growl.IsGrowlRunning = True Then
@@ -479,35 +154,20 @@ Public Class Form1
     End Sub
     Public Sub SetToolTips()
         ToolTips.SetToolTip(Message, "Specify a message here. No message is required if Media Title and Segment fields are filled. Not used for Scrobble.")
-        ToolTips.SetToolTip(mediatype, "Selects the Media Type to use in your update or scrobble with.")
+        '       ToolTips.SetToolTip(mediatype, "Selects the Media Type to use in your update or scrobble with.")
         ToolTips.SetToolTip(MediaTitle, "The title of the media.")
         ToolTips.SetToolTip(Segment, "The segment of the media (e.g.: Episode or Track).")
         ToolTips.SetToolTip(CompleteCheckbox, "Check this if you completed with the segment/media.")
         ToolTips.SetToolTip(SendtoTwitter, "Appends @tw to your message and sends this update to Twitter." & vbCrLf & "The Twitter Bridge must be enabled to use this feature")
-        ToolTips.SetToolTip(ArtistName, "The artist name. Used only with the Music mediatype.")
-        ToolTips.SetToolTip(ScrobbleBut, "Silently update the current media title and segment")
-        ToolTips.SetToolTip(PostBut, "Posts the update.")
-    End Sub
-
-    Private Function WMICRegex(ByVal Input As String) As String
-        Dim pattern As String = "\\([^\\]+)$"
-        Dim rgx As New Regex(pattern, RegexOptions.IgnoreCase)
-        Dim matches As MatchCollection = rgx.Matches(Input)
-        If matches.Count > 0 Then
-            Input = "C:" & matches(0).Value
-            Input = Trim(Regex.Replace(Input, Chr(34), ""))
-            Input = Regex.Replace(Input, "\n", "")
-            Return Input
-        Else
-            Return ""
-        End If
-    End Function
-
-    Private Sub OpenFileDialog1_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs)
-
+        'ToolTips.SetToolTip(ArtistName, "The artist name. Used only with the Music mediatype.")
+        '        ToolTips.SetToolTip(ScrobbleBut, "Silently update the current media title and segment")
+        '       ToolTips.SetToolTip(PostBut, "Posts the update.")
     End Sub
 
     Private Sub UploadImageToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UploadImageToolStripMenuItem.Click
+        uploadImage()
+    End Sub
+    Public Sub uploadImage()
         Dim myStream As Stream = Nothing
         Dim openFileDialog1 As New OpenFileDialog()
 
@@ -528,7 +188,87 @@ Public Class Form1
     End Sub
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
-        UpdateChecker.CheckForUpdates()
+        WinSparkle.win_sparkle_check_update_with_ui()
+    End Sub
 
+    Private Sub ToolStripComboBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MediaType.Click
+
+    End Sub
+
+    Private Sub DetectBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DetectBut.Click
+        Dim success As Boolean
+        success = melclient.DetectMedia(MediaType.SelectedIndex)
+        If success = True Then
+            MediaTitle.Text = melclient.getMedia
+            Segment.Text = melclient.getSegment
+            Status.Text = "Detected playing Media"
+        Else
+            Status.Text = "Nothing is playing..."
+        End If
+    End Sub
+
+    Private Sub UploadImageBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UploadImageBut.Click
+        uploadImage()
+    End Sub
+
+    Private Sub UpdateBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateBut.Click
+        If MediaTitle.TextLength = 0 Or Segment.TextLength = 0 Then
+            MsgBox("You must enter a media title and a segment to scrobble this title.", MsgBoxStyle.Exclamation)
+            Status.Text = "No Title/Segment Entered."
+        Else
+            Status.Text = "Scrobbling Title..."
+            Dim httpcode As Integer
+            httpcode = melclient.Scrobble(MediaTitle.Text, Segment.Text, MediaType.SelectedIndex)
+            Select Case httpcode
+                Case 200
+                    ' Get response  
+                    If My.Settings.RequestOutPut = True Then
+                        MsgBox("Scrobble Successful" + vbCrLf + vbCrLf + melclient.getResponseData, MsgBoxStyle.Information)
+                    End If
+                    Status.Text = "Scrobble Successful."
+                Case 500
+                    MsgBox("Unable to post update. Check your account info." + vbCrLf + melclient.getResponseData, MsgBoxStyle.Exclamation)
+                    Status.Text = "Scrobble Failed."
+            End Select
+
+        End If
+    End Sub
+
+    Private Sub SendBut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SendBut.Click
+        If Message.TextLength = 0 And MediaTitle.TextLength = 0 Then
+            MsgBox("You must enter a message or a media title to post a update.", MsgBoxStyle.Exclamation)
+            Status.Text = "No Message Entered."
+        Else
+            Dim httpcode As Integer
+            Status.Text = "Posting Update..."
+            httpcode = melclient.PostUpdate(MediaTitle.Text, MediaType.SelectedIndex, Segment.Text, Message.Text, SendtoTwitter.Checked, CompleteCheckbox.Checked)
+            Select Case (httpcode)
+                Case 200
+                    If My.Settings.RequestOutPut = True Then
+                        MsgBox("Post Successful" + vbCrLf + vbCrLf + melclient.getResponseData, MsgBoxStyle.Information)
+                    End If
+                    'Clear Message
+                    Message.Text = ""
+                    If CompleteCheckbox.Checked = True Then
+                        MediaTitle.Text = ""
+                        Segment.Text = ""
+                    End If
+                    CompleteCheckbox.Checked = False
+                    Status.Text = "Post Successful."
+                Case 500
+                    MsgBox("Unable to post update. Check your account info." + vbCrLf + melclient.getResponseData, MsgBoxStyle.Exclamation)
+                    Status.Text = "Post Failed."
+                Case Else
+                    MsgBox("Unable to post update. Unknown Error." + vbCrLf + melclient.getResponseData, MsgBoxStyle.Exclamation)
+                    Status.Text = "Post Failed."
+            End Select
+        End If
+    End Sub
+
+    Private Sub ClearFields_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ClearFields.Click
+        MediaTitle.Text = ""
+        Segment.Text = ""
+        Message.Text = ""
+        Status.Text = "All fields are cleared."
     End Sub
 End Class

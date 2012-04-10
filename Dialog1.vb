@@ -31,7 +31,7 @@ Public Class Dialog1
                 Dim data As Stream = response.GetResponseStream()
                 data = response.GetResponseStream()
                 Dim reader As New StreamReader(data)
-                MsgBox("Login Successful" + vbCrLf + vbCrLf + reader.ReadToEnd, MsgBoxStyle.Information)
+                MsgBox("Login Successful", MsgBoxStyle.Information)
                 CreateTokens(Username.Text, Password.Text)
                 If My.Settings.APIToken.Length > 0 Then
                     Button2.Enabled = False

@@ -24,24 +24,21 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.PostBut = New System.Windows.Forms.Button()
-        Me.ScrobbleBut = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Message = New System.Windows.Forms.TextBox()
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.UploadImageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ClearFields = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.MediaTitle = New System.Windows.Forms.TextBox()
-        Me.mediatype = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Segment = New System.Windows.Forms.TextBox()
-        Me.DetectBut = New System.Windows.Forms.Button()
         Me.CompleteCheckbox = New System.Windows.Forms.CheckBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.ArtistName = New System.Windows.Forms.TextBox()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AboutMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ShowHideScrobbleWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
@@ -51,42 +48,31 @@ Partial Class Form1
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitMelScrobbleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Status = New System.Windows.Forms.Label()
         Me.Scrobble = New System.Windows.Forms.Timer(Me.components)
         Me.SendtoTwitter = New System.Windows.Forms.CheckBox()
         Me.ToolTips = New System.Windows.Forms.ToolTip(Me.components)
-        Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.DetectBut = New System.Windows.Forms.ToolStripButton()
+        Me.UploadImageBut = New System.Windows.Forms.ToolStripButton()
+        Me.MediaType = New System.Windows.Forms.ToolStripComboBox()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.UpdateBut = New System.Windows.Forms.ToolStripButton()
+        Me.SendBut = New System.Windows.Forms.ToolStripButton()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.Status = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'PostBut
-        '
-        Me.PostBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PostBut.Location = New System.Drawing.Point(303, 158)
-        Me.PostBut.Name = "PostBut"
-        Me.PostBut.Size = New System.Drawing.Size(75, 23)
-        Me.PostBut.TabIndex = 0
-        Me.PostBut.Text = "Post"
-        Me.PostBut.UseVisualStyleBackColor = True
-        '
-        'ScrobbleBut
-        '
-        Me.ScrobbleBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ScrobbleBut.Location = New System.Drawing.Point(225, 158)
-        Me.ScrobbleBut.Name = "ScrobbleBut"
-        Me.ScrobbleBut.Size = New System.Drawing.Size(75, 23)
-        Me.ScrobbleBut.TabIndex = 1
-        Me.ScrobbleBut.Text = "Scrobble"
-        Me.ScrobbleBut.UseVisualStyleBackColor = True
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(15, 12)
+        Me.Label1.Location = New System.Drawing.Point(15, 106)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 13)
+        Me.Label1.Size = New System.Drawing.Size(68, 16)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Message:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -95,7 +81,7 @@ Partial Class Form1
         '
         Me.Message.ContextMenuStrip = Me.ContextMenuStrip2
         Me.Message.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Message.Location = New System.Drawing.Point(74, 12)
+        Me.Message.Location = New System.Drawing.Point(74, 106)
         Me.Message.Multiline = True
         Me.Message.Name = "Message"
         Me.Message.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
@@ -104,23 +90,34 @@ Partial Class Form1
         '
         'ContextMenuStrip2
         '
-        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadImageToolStripMenuItem})
+        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadImageToolStripMenuItem, Me.ToolStripSeparator2, Me.ClearFields})
         Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(164, 30)
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(149, 54)
         '
         'UploadImageToolStripMenuItem
         '
         Me.UploadImageToolStripMenuItem.Name = "UploadImageToolStripMenuItem"
-        Me.UploadImageToolStripMenuItem.Size = New System.Drawing.Size(163, 26)
+        Me.UploadImageToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.UploadImageToolStripMenuItem.Text = "Upload Image"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(145, 6)
+        '
+        'ClearFields
+        '
+        Me.ClearFields.Name = "ClearFields"
+        Me.ClearFields.Size = New System.Drawing.Size(148, 22)
+        Me.ClearFields.Text = "Clear all Fields"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(29, 66)
+        Me.Label2.Location = New System.Drawing.Point(29, 54)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 13)
+        Me.Label2.Size = New System.Drawing.Size(49, 16)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Media:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -128,29 +125,18 @@ Partial Class Form1
         'MediaTitle
         '
         Me.MediaTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MediaTitle.Location = New System.Drawing.Point(74, 63)
+        Me.MediaTitle.Location = New System.Drawing.Point(74, 51)
         Me.MediaTitle.Name = "MediaTitle"
-        Me.MediaTitle.Size = New System.Drawing.Size(145, 20)
+        Me.MediaTitle.Size = New System.Drawing.Size(304, 22)
         Me.MediaTitle.TabIndex = 5
-        '
-        'mediatype
-        '
-        Me.mediatype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.mediatype.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.mediatype.FormattingEnabled = True
-        Me.mediatype.Items.AddRange(New Object() {"Anime", "Music", "Adrama"})
-        Me.mediatype.Location = New System.Drawing.Point(225, 63)
-        Me.mediatype.Name = "mediatype"
-        Me.mediatype.Size = New System.Drawing.Size(83, 21)
-        Me.mediatype.TabIndex = 6
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(16, 93)
+        Me.Label3.Location = New System.Drawing.Point(16, 81)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(52, 13)
+        Me.Label3.Size = New System.Drawing.Size(65, 16)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Segment:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -158,49 +144,21 @@ Partial Class Form1
         'Segment
         '
         Me.Segment.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Segment.Location = New System.Drawing.Point(74, 90)
+        Me.Segment.Location = New System.Drawing.Point(74, 78)
         Me.Segment.Name = "Segment"
-        Me.Segment.Size = New System.Drawing.Size(304, 20)
+        Me.Segment.Size = New System.Drawing.Size(304, 22)
         Me.Segment.TabIndex = 8
-        '
-        'DetectBut
-        '
-        Me.DetectBut.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DetectBut.Location = New System.Drawing.Point(315, 62)
-        Me.DetectBut.Name = "DetectBut"
-        Me.DetectBut.Size = New System.Drawing.Size(63, 22)
-        Me.DetectBut.TabIndex = 9
-        Me.DetectBut.Text = "Detect"
-        Me.DetectBut.UseVisualStyleBackColor = True
         '
         'CompleteCheckbox
         '
         Me.CompleteCheckbox.AutoSize = True
         Me.CompleteCheckbox.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CompleteCheckbox.Location = New System.Drawing.Point(298, 120)
+        Me.CompleteCheckbox.Location = New System.Drawing.Point(308, 156)
         Me.CompleteCheckbox.Name = "CompleteCheckbox"
-        Me.CompleteCheckbox.Size = New System.Drawing.Size(70, 17)
+        Me.CompleteCheckbox.Size = New System.Drawing.Size(85, 20)
         Me.CompleteCheckbox.TabIndex = 10
         Me.CompleteCheckbox.Text = "Complete"
         Me.CompleteCheckbox.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(35, 122)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(33, 13)
-        Me.Label4.TabIndex = 13
-        Me.Label4.Text = "Artist:"
-        '
-        'ArtistName
-        '
-        Me.ArtistName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ArtistName.Location = New System.Drawing.Point(74, 118)
-        Me.ArtistName.Name = "ArtistName"
-        Me.ArtistName.Size = New System.Drawing.Size(218, 20)
-        Me.ArtistName.TabIndex = 14
         '
         'NotifyIcon1
         '
@@ -218,71 +176,68 @@ Partial Class Form1
         Me.ContextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.ContextMenuStrip1.ShowCheckMargin = True
         Me.ContextMenuStrip1.ShowImageMargin = False
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(258, 206)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(230, 160)
         '
         'AboutMelScrobbleToolStripMenuItem
         '
         Me.AboutMelScrobbleToolStripMenuItem.Name = "AboutMelScrobbleToolStripMenuItem"
-        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
+        Me.AboutMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.AboutMelScrobbleToolStripMenuItem.Text = "About MelScrobble"
+        '
+        'CheckForUpdatesToolStripMenuItem
+        '
+        Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
+        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.CheckForUpdatesToolStripMenuItem.Text = "Check for Updates..."
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(254, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(226, 6)
         '
         'ShowHideScrobbleWindowToolStripMenuItem
         '
         Me.ShowHideScrobbleWindowToolStripMenuItem.Name = "ShowHideScrobbleWindowToolStripMenuItem"
-        Me.ShowHideScrobbleWindowToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
+        Me.ShowHideScrobbleWindowToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.ShowHideScrobbleWindowToolStripMenuItem.Text = "Show/Hide Scrobble Window"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(254, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(226, 6)
         '
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings..."
         '
         'ToolStripMenuItem4
         '
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(254, 6)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(226, 6)
         '
         'EnableScrobblingToolStripMenuItem
         '
         Me.EnableScrobblingToolStripMenuItem.Name = "EnableScrobblingToolStripMenuItem"
-        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
+        Me.EnableScrobblingToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.EnableScrobblingToolStripMenuItem.Text = "Enable Scrobbling"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(254, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(226, 6)
         '
         'ExitMelScrobbleToolStripMenuItem
         '
         Me.ExitMelScrobbleToolStripMenuItem.Name = "ExitMelScrobbleToolStripMenuItem"
-        Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
+        Me.ExitMelScrobbleToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
         Me.ExitMelScrobbleToolStripMenuItem.Text = "E&xit MelScrobble"
         '
         'Timer1
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1
-        '
-        'Status
-        '
-        Me.Status.AutoSize = True
-        Me.Status.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Status.Location = New System.Drawing.Point(15, 163)
-        Me.Status.Name = "Status"
-        Me.Status.Size = New System.Drawing.Size(0, 13)
-        Me.Status.TabIndex = 11
         '
         'Scrobble
         '
@@ -291,7 +246,7 @@ Partial Class Form1
         'SendtoTwitter
         '
         Me.SendtoTwitter.AutoSize = True
-        Me.SendtoTwitter.Location = New System.Drawing.Point(74, 144)
+        Me.SendtoTwitter.Location = New System.Drawing.Point(74, 156)
         Me.SendtoTwitter.Name = "SendtoTwitter"
         Me.SendtoTwitter.Size = New System.Drawing.Size(98, 17)
         Me.SendtoTwitter.TabIndex = 15
@@ -304,32 +259,95 @@ Partial Class Form1
         Me.ToolTips.InitialDelay = 700
         Me.ToolTips.ReshowDelay = 100
         '
-        'CheckForUpdatesToolStripMenuItem
+        'ToolStrip1
         '
-        Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
-        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(257, 26)
-        Me.CheckForUpdatesToolStripMenuItem.Text = "Check for Updates..."
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DetectBut, Me.UploadImageBut, Me.MediaType, Me.ToolStripSeparator1, Me.UpdateBut, Me.SendBut})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.ToolStrip1.Size = New System.Drawing.Size(390, 45)
+        Me.ToolStrip1.TabIndex = 16
+        Me.ToolStrip1.Text = "Main"
+        '
+        'DetectBut
+        '
+        Me.DetectBut.Image = CType(resources.GetObject("DetectBut.Image"), System.Drawing.Image)
+        Me.DetectBut.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.DetectBut.Name = "DetectBut"
+        Me.DetectBut.Size = New System.Drawing.Size(45, 42)
+        Me.DetectBut.Text = "Detect"
+        Me.DetectBut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'UploadImageBut
+        '
+        Me.UploadImageBut.Image = CType(resources.GetObject("UploadImageBut.Image"), System.Drawing.Image)
+        Me.UploadImageBut.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.UploadImageBut.Name = "UploadImageBut"
+        Me.UploadImageBut.Size = New System.Drawing.Size(85, 42)
+        Me.UploadImageBut.Text = "Upload Image"
+        Me.UploadImageBut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'MediaType
+        '
+        Me.MediaType.Items.AddRange(New Object() {"Anime", "Music", "Adrama"})
+        Me.MediaType.Name = "MediaType"
+        Me.MediaType.Size = New System.Drawing.Size(121, 45)
+        Me.MediaType.ToolTipText = "Media Type"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 45)
+        '
+        'UpdateBut
+        '
+        Me.UpdateBut.Image = CType(resources.GetObject("UpdateBut.Image"), System.Drawing.Image)
+        Me.UpdateBut.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.UpdateBut.Name = "UpdateBut"
+        Me.UpdateBut.Size = New System.Drawing.Size(49, 42)
+        Me.UpdateBut.Text = "Update"
+        Me.UpdateBut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'SendBut
+        '
+        Me.SendBut.Image = CType(resources.GetObject("SendBut.Image"), System.Drawing.Image)
+        Me.SendBut.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.SendBut.Name = "SendBut"
+        Me.SendBut.Size = New System.Drawing.Size(34, 42)
+        Me.SendBut.Text = "Post"
+        Me.SendBut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Status})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 181)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(390, 22)
+        Me.StatusStrip1.TabIndex = 17
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'Status
+        '
+        Me.Status.Name = "Status"
+        Me.Status.Size = New System.Drawing.Size(0, 17)
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(390, 188)
-        Me.Controls.Add(Me.ArtistName)
+        Me.ClientSize = New System.Drawing.Size(390, 203)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.SendtoTwitter)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Message)
-        Me.Controls.Add(Me.DetectBut)
         Me.Controls.Add(Me.CompleteCheckbox)
-        Me.Controls.Add(Me.Status)
+        Me.Controls.Add(Me.Message)
         Me.Controls.Add(Me.Segment)
+        Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.mediatype)
         Me.Controls.Add(Me.MediaTitle)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.ScrobbleBut)
-        Me.Controls.Add(Me.PostBut)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.WindowsApplication1.My.MySettings.Default, "WindowPosition", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -339,24 +357,21 @@ Partial Class Form1
         Me.Text = "MelScrobble"
         Me.ContextMenuStrip2.ResumeLayout(False)
         Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents PostBut As System.Windows.Forms.Button
-    Friend WithEvents ScrobbleBut As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Message As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents MediaTitle As System.Windows.Forms.TextBox
-    Friend WithEvents mediatype As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Segment As System.Windows.Forms.TextBox
-    Friend WithEvents DetectBut As System.Windows.Forms.Button
     Friend WithEvents CompleteCheckbox As System.Windows.Forms.CheckBox
-    Friend WithEvents Status As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents ArtistName As System.Windows.Forms.TextBox
     Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ShowHideScrobbleWindowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -375,5 +390,16 @@ Partial Class Form1
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents UploadImageToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CheckForUpdatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
+    Friend WithEvents DetectBut As System.Windows.Forms.ToolStripButton
+    Friend WithEvents UploadImageBut As System.Windows.Forms.ToolStripButton
+    Friend WithEvents MediaType As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents UpdateBut As System.Windows.Forms.ToolStripButton
+    Friend WithEvents SendBut As System.Windows.Forms.ToolStripButton
+    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Friend WithEvents Status As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ClearFields As System.Windows.Forms.ToolStripMenuItem
 
 End Class

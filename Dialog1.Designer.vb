@@ -107,10 +107,10 @@ Partial Class Dialog1
         Me.TabPage1.Controls.Add(Me.Label6)
         Me.TabPage1.Controls.Add(Me.ShowAtStartup)
         Me.TabPage1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 23)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(399, 247)
+        Me.TabPage1.Size = New System.Drawing.Size(399, 246)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -130,7 +130,7 @@ Partial Class Dialog1
         Me.BalloonFallback.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "BalloonFallback", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.BalloonFallback.Location = New System.Drawing.Point(35, 90)
         Me.BalloonFallback.Name = "BalloonFallback"
-        Me.BalloonFallback.Size = New System.Drawing.Size(101, 17)
+        Me.BalloonFallback.Size = New System.Drawing.Size(118, 20)
         Me.BalloonFallback.TabIndex = 4
         Me.BalloonFallback.Text = "Balloon Fallback"
         Me.BalloonFallback.UseVisualStyleBackColor = True
@@ -142,7 +142,7 @@ Partial Class Dialog1
         Me.ShowResponse.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.WindowsApplication1.My.MySettings.Default, "RequestOutPut", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.ShowResponse.Location = New System.Drawing.Point(35, 66)
         Me.ShowResponse.Name = "ShowResponse"
-        Me.ShowResponse.Size = New System.Drawing.Size(125, 17)
+        Me.ShowResponse.Size = New System.Drawing.Size(144, 20)
         Me.ShowResponse.TabIndex = 3
         Me.ShowResponse.Text = "Show Response Info"
         Me.ShowResponse.UseVisualStyleBackColor = True
@@ -152,7 +152,7 @@ Partial Class Dialog1
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(12, 17)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(44, 13)
+        Me.Label6.Size = New System.Drawing.Size(52, 16)
         Me.Label6.TabIndex = 2
         Me.Label6.Text = "General"
         '
@@ -165,7 +165,7 @@ Partial Class Dialog1
         Me.ShowAtStartup.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ShowAtStartup.Location = New System.Drawing.Point(35, 43)
         Me.ShowAtStartup.Name = "ShowAtStartup"
-        Me.ShowAtStartup.Size = New System.Drawing.Size(189, 17)
+        Me.ShowAtStartup.Size = New System.Drawing.Size(224, 20)
         Me.ShowAtStartup.TabIndex = 1
         Me.ShowAtStartup.Text = "Show Scrobble Window at Startup"
         Me.ShowAtStartup.UseVisualStyleBackColor = True
@@ -180,10 +180,10 @@ Partial Class Dialog1
         Me.TabPage2.Controls.Add(Me.Label2)
         Me.TabPage2.Controls.Add(Me.Label1)
         Me.TabPage2.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 23)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(399, 247)
+        Me.TabPage2.Size = New System.Drawing.Size(399, 246)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Login"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -247,7 +247,7 @@ Partial Class Dialog1
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(3, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(59, 13)
+        Me.Label3.Size = New System.Drawing.Size(59, 26)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "Username:"
         '
@@ -255,7 +255,7 @@ Partial Class Dialog1
         '
         Me.Username.Location = New System.Drawing.Point(71, 3)
         Me.Username.Name = "Username"
-        Me.Username.Size = New System.Drawing.Size(148, 21)
+        Me.Username.Size = New System.Drawing.Size(148, 23)
         Me.Username.TabIndex = 2
         '
         'Label4
@@ -263,7 +263,7 @@ Partial Class Dialog1
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(3, 26)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(53, 13)
+        Me.Label4.Size = New System.Drawing.Size(56, 26)
         Me.Label4.TabIndex = 1
         Me.Label4.Text = "Password"
         '
@@ -272,7 +272,7 @@ Partial Class Dialog1
         Me.Password.Location = New System.Drawing.Point(71, 29)
         Me.Password.Name = "Password"
         Me.Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.Password.Size = New System.Drawing.Size(148, 21)
+        Me.Password.Size = New System.Drawing.Size(148, 23)
         Me.Password.TabIndex = 3
         '
         'Label2
@@ -290,7 +290,7 @@ Partial Class Dialog1
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(14, 14)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(32, 13)
+        Me.Label1.Size = New System.Drawing.Size(38, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Login"
         '
